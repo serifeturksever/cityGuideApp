@@ -4,11 +4,11 @@
         <h2>See what happens in your city!</h2>
         <br>
         <div id="all-cards">
-            <Card title="News,Events & Tips"/>
-            <Card title="Nearby Attractions"/>
-            <Card title="Attractions"/>
-            <Card title="Weather"/>
-            <Card title="Where to Eat & Stay"/>
+            <a @click="this.notImplementedInfo"><Card title="News,Events & Tips"/></a>
+            <router-link id="active-route" to="/nearby-attractions"><Card title="Nearby Attractions"/></router-link>
+            <a @click="this.notImplementedInfo"><Card title="Attractions"/></a>
+            <a @click="this.notImplementedInfo"><Card title="Weather"/></a>
+            <a @click="this.notImplementedInfo"><Card title="Where to Eat & Stay"/></a>
         </div>
     </div>
 </template>
@@ -20,7 +20,12 @@ export default {
   name: 'Welcome',
   components: {
     Card
-  }
+  },
+  methods: {
+    notImplementedInfo: function() {
+        alert('This feature is not implemented yet!');
+      }
+},
 }
 </script>
 <style>
@@ -55,4 +60,22 @@ h1 {
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
+
+a {
+    cursor: pointer;
+}
+
+#all-cards *:hover {
+    color: cadetblue;
+}
+
+a,
+a:link,
+a:visited,
+a:active {
+    color: black;
+    text-decoration: none;
+}
+
+
 </style>

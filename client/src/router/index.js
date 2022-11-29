@@ -4,6 +4,7 @@ import HelloWorld from '@/components/HelloWorld'
 import Todo from '@/components/Todo'
 import Welcome from '@/components/Welcome'
 import Card from '@/components/Card'
+import NearbyAttractions from '@/components/NearbyAttractions'
 
 Vue.use(Router)
 
@@ -25,6 +26,10 @@ export default new Router({
     {
       path: '/card',
       component: Card
+    },
+    {
+      path: '/nearby-attractions',
+      component: NearbyAttractions
     }
   ]
 })
