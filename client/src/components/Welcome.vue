@@ -61,18 +61,12 @@ h1 {
     -webkit-text-fill-color: transparent;
 }
 
-a {
+#all-cards *:hover {
+    color: cadetblue;
     cursor: pointer;
 }
 
-#all-cards *:hover {
-    color: cadetblue;
-}
-
-a,
-a:link,
-a:visited,
-a:active {
+#all-cards * {
     color: black;
     text-decoration: none;
 }
