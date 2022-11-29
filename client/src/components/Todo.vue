@@ -4,9 +4,7 @@
             <input type='text' placeholder='Ne yapacaksın?' v-model='yeniToDo' />
             <input type='submit' />
         </form>
-        <!-- <input v-model='yeniToDo' />
-        <button @click="ekleToDo($event)">ekle</button> -->
-        
+    
         <ul>
             <li v-for='todo in todos' :key='todo._id'>
                 <input type='checkbox' @click='silToDo(todo._id)'> {{todo.title}}
