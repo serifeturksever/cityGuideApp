@@ -6,9 +6,6 @@
  let map;
 
  function initMap() {
-   // ! local context
- 
- 
    const Izmir = { lat: 38.4237, lng: 27.1428 };
  
    map = new google.maps.Map(document.getElementById("map"), {

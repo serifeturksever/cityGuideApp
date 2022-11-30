@@ -1,5 +1,6 @@
 <template lang="html">
     <div id="welcome-container">
+        <div id="map"></div>
         <h1>Welcome to City Guide App</h1>
         <h2>See what happens in your city!</h2>
         <br>
@@ -10,6 +11,7 @@
             <a @click="this.notImplementedInfo"><Card title="Weather"/></a>
             <a @click="this.notImplementedInfo"><Card title="Where to Eat & Stay"/></a>
         </div>
+        
     </div>
 </template>
 
@@ -69,6 +71,11 @@ h1 {
 #all-cards * {
     color: black;
     text-decoration: none;
+}
+
+#map {
+    width: 100%;
+    height: 500px;
 }
 
 

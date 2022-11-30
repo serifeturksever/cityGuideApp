@@ -1,7 +1,6 @@
 <template lang="html">
     <div>
         <h2>Nearby Attractions</h2>
-        <div id="map"></div>
     </div>
 </template>
 
