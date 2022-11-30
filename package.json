@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "vue-browser-geolocation": "^1.8.0",
+    "vue2-google-maps": "^0.10.7"
+  }
+}
