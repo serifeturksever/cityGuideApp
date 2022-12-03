@@ -55,3 +55,50 @@
         <div class="ten wide column segment ui" width="500px" height="500px" ref="map"></div>
     </div>
 </template>
+
+<script>
+import axios from "axios";
+export default {
+    data() {
+        return {
+            lat: 0,
+            lng: 0,
+            type: "",
+            radius: "",
+            places: []
+        };
+    },
+    computed: {
+        coordinates() {
+            return `${this.lat}, ${this.lng}`;
+        }
+    },
+    methods: {
+        locatorButtonPressed() {
+            navigator.geolocation.getCurrentPosition(
+                position => {
+                    this.lat = position.coords.latitude;
+                    this.lng = position.coords.longitude;
+                },
+                error => {
+                    console.log("Error getting location");
+                }
+            );
+        },
+        // 46.288896, -79.44192
+        findCloseBuyButtonPressed() {
+            const URL = `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${this.lat
+                },${this.lng}&type=${this.type}&radius=${this.radius *
+                1000}&key=AIzaSyA6VsFQVixA00O1Qg4_wKy_WuaVa77zc5I`;
+            axios.get(URL).then(response => {
+                console.log(response)
+                this.places = response.data.results;
+                console.log("merhaba")
+                this.addLocationsToGoogleMaps();
+            }).catch(error => {
+                console.log(error.message);
+            });
+        }
+    }
+}
+</script>
