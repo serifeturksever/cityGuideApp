@@ -5,15 +5,17 @@
                 <div class="ui segment">
                     <div class="field">
                         <div class="ui right icon input large">
-                            <input type="text" placeholder="Enter your address" v-model="coordinates" />
-                            <i class="dot circle link icon" @click="locatorButtonPressed"></i>
+                            <input id="lon-lat" type="text" placeholder="Enter your address" v-model="coordinates" />
+                            <button id="find-me" @click="locatorButtonPressed">find my location</button>
+                            <!-- <i class="dot circle link icon" @click="locatorButtonPressed"></i> -->
                         </div>
                     </div>
                     <div class="field">
                         <div class="two fields">
                             <div class="field">
                                 <select v-model="type">
-                                    <option value="all">See All</option>
+                                    <option disabled value="">Attraction Type</option>
+                                    <option value="all">See All Attractions</option>
                                     <option value="restaurant">Restaurant</option>
                                     <option selected value="travel_agency">Travel Agency</option>
                                     <option value="hospital">Hospital</option>
@@ -30,18 +32,21 @@
                             </div>
                             <div class="field">
                                 <select v-model="radius">
+                                    <option disabled value="">Radius</option>
                                     <option value="1">1 KM</option>
                                     <option value="5">5 KM</option>
                                     <option value="10">10 KM</option>
                                     <option value="15">15 KM</option>
                                     <option value="20">20 KM</option>
+                                    <option value="25">25 KM</option>
+                                    <option value="50">50 KM</option>
                                 </select>
                             </div>
                         </div>
                     </div>
-                    <button class="ui button" @click="findCloseBuyButtonPressed">Find CloseBuy</button>
+                    <button class="ui button" @click="findCloseBuyButtonPressed" style="background-color:cadetblue;color:white">Find CloseBuy</button>
                 </div>
-                <div class="ui segment" style="max-height:500px;overflow:scroll">
+                <div id="close-places-list" class="ui segment" style="max-height:500px;overflow:scroll;display:none">
                     <div class="ui divided items">
                         <div class="item" v-for="place in places" :key="place.id">
                             <div class="content">
@@ -53,24 +58,27 @@
                 </div>
             </form>
         </div>
-        <div class="ten wide column segment ui" width="500px" height="500px" ref="map"></div>
+        <div id="map" class="ten wide column segment ui" width="500px" height="800px" ref="map" style="display:none"></div>
+        <div id="map-preinformation" class="ten wide column segment ui" width="500px" height="800px" style="display:flex;align-items:center;justify-content:center;font-size:24px">
+            Please locate yourself, choose attraction type and radius you want to see
+        </div>
     </div>
 </template>
 
 <script>
 import axios from "axios";
 export default {
-    mounted() {
-        navigator.geolocation.getCurrentPosition(
-                position => {
-                    this.lat = position.coords.latitude;
-                    this.lng = position.coords.longitude;
-                },
-                error => {
-                    console.log("Error getting location");
-                }
-            );
-  },
+//     mounted() {
+//         navigator.geolocation.getCurrentPosition(
+//                 position => {
+//                     this.lat = position.coords.latitude;
+//                     this.lng = position.coords.longitude;
+//                 },
+//                 error => {
+//                     console.log("Error getting location");
+//                 }
+//             );
+//   },
     data() {
         return {
             lat: 0,
@@ -106,6 +114,9 @@ export default {
             axios.get(URL).then(response => {
                 this.places = response.data.results;
                 this.addLocationsToGoogleMaps();
+                document.querySelector("#close-places-list").style.display = "block";
+                document.querySelector("#map-preinformation").style.display = "none";
+                document.querySelector("#map").style.display = "block";
             }).catch(error => {
                 console.log(error.message);
             });
@@ -137,3 +148,18 @@ export default {
     }
 }
 </script>
+<style>
+#find-me {
+    border: 1px solid transparent;
+    border-radius: 12px;
+    background-color: crimson;
+    color: gainsboro;
+    box-shadow: rgba(236, 136, 136, 0.35) 0px 5px 15px;
+    cursor: pointer;
+
+}
+
+#lon-lat {
+    margin-right: 8px;
+}
+</style>
