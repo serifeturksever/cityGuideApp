@@ -13,6 +13,7 @@
                         <div class="two fields">
                             <div class="field">
                                 <select v-model="type">
+                                    <option value="all">See All</option>
                                     <option value="restaurant">Restaurant</option>
                                     <option selected value="travel_agency">Travel Agency</option>
                                     <option value="hospital">Hospital</option>
@@ -59,6 +60,17 @@
 <script>
 import axios from "axios";
 export default {
+    mounted() {
+        navigator.geolocation.getCurrentPosition(
+                position => {
+                    this.lat = position.coords.latitude;
+                    this.lng = position.coords.longitude;
+                },
+                error => {
+                    console.log("Error getting location");
+                }
+            );
+  },
     data() {
         return {
             lat: 0,
@@ -87,17 +99,40 @@ export default {
         },
         // 46.288896, -79.44192
         findCloseBuyButtonPressed() {
+            let type_str = this.type == 'all' ? '' : `&type=${this.type}`
             const URL = `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${this.lat
-                },${this.lng}&type=${this.type}&radius=${this.radius *
+                },${this.lng}${type_str}&radius=${this.radius *
                 1000}&key=AIzaSyA6VsFQVixA00O1Qg4_wKy_WuaVa77zc5I`;
             axios.get(URL).then(response => {
-                console.log(response)
                 this.places = response.data.results;
-                console.log("merhaba")
                 this.addLocationsToGoogleMaps();
             }).catch(error => {
                 console.log(error.message);
             });
+        },
+        addLocationsToGoogleMaps() {
+
+            var infowindow = new google.maps.InfoWindow();
+            var map = new google.maps.Map(this.$refs['map'], {
+                zoom: 15,
+                center: new google.maps.LatLng(this.lat, this.lng),
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+            this.places.forEach((place) => {
+                const lat = place.geometry.location.lat;
+                const lng = place.geometry.location.lng;
+                let marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(lat, lng),
+                    map: map
+                });
+
+                google.maps.event.addListener(marker, "click", () => {
+                    infowindow.setContent(`<div class="ui header">${place.name}</div><p>${place.vicinity}</p>`);
+                    infowindow.open(map, marker);
+                });
+            });
+
+
         }
     }
 }
