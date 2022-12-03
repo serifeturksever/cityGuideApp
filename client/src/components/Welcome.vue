@@ -1,17 +1,27 @@
 <template lang="html">
     <div id="welcome-container">
-        <div id="map"></div>
+        <div id="map" class="ten wide column segment ui" width="500px" height="800px" ref="map"></div>
         <h1>Welcome to City Guide App</h1>
         <h2>See what happens in your city!</h2>
         <br>
         <div id="all-cards">
-            <a @click="this.notImplementedInfo"><Card title="News,Events & Tips"/></a>
-            <router-link id="active-route" to="/nearby-attractions"><Card title="Nearby Attractions"/></router-link>
-            <a @click="this.notImplementedInfo"><Card title="Attractions"/></a>
-            <a @click="this.notImplementedInfo"><Card title="Weather"/></a>
-            <a @click="this.notImplementedInfo"><Card title="Where to Eat & Stay"/></a>
+            <a @click="this.notImplementedYet">
+                <Card title="News,Events & Tips" />
+            </a>
+            <router-link id="active-route" to="/nearby-attractions">
+                <Card title="Nearby Attractions" />
+            </router-link>
+            <a @click="this.notImplementedYet">
+                <Card title="Attractions" />
+            </a>
+            <a @click="this.notImplementedYet">
+                <Card title="Weather" />
+            </a>
+            <a @click="this.notImplementedYet">
+                <Card title="Where to Eat & Stay" />
+            </a>
         </div>
-        
+
     </div>
 </template>
 
@@ -19,15 +29,88 @@
 import Card from './Card'
 
 export default {
-  name: 'Welcome',
-  components: {
-    Card
-  },
-  methods: {
-    notImplementedInfo: function() {
-        alert('This feature is not implemented yet!');
-      }
-},
+    name: 'Welcome',
+    components: {
+        Card
+    },
+    mounted() {
+        var map;
+        const Izmir = { lat: 38.4237, lng: 27.1428 };
+        const localContextMapView = new google.maps.localContext.LocalContextMapView({
+            element: this.$refs['map'],
+            placeTypePreferences: [
+                { type: "restaurant" },
+                { type: "tourist_attraction" },
+            ],
+            maxPlaceCount: 12,
+        });
+
+        map = localContextMapView.map;
+        map.setOptions({
+            center: Izmir,
+            zoom: 14,
+        });
+        var infoWindow = new google.maps.InfoWindow();
+        const locationButton = document.createElement("button");
+
+        locationButton.textContent = "Find your Location";
+        locationButton.classList.add("custom-map-control-button");
+        map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
+        
+        locationButton.addEventListener("click", () => {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const pos = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude,
+          };
+          const localContextMapView = new google.maps.localContext.LocalContextMapView({
+            element: document.getElementById("map"),
+            placeTypePreferences: [
+              "restaurant",
+              "tourist_attraction",
+              "hospital",
+              "bank",
+              "park",
+            ],
+            maxPlaceCount: 24,
+          });
+          console.log("info.window",infoWindow)
+          console.log("map",map)
+          infoWindow.setPosition(pos);
+          map = localContextMapView.map;
+          console.log("info.window",infoWindow)
+          console.log("map",map)
+          infoWindow.setContent("Location found.");
+          infoWindow.open(map);
+          map.setOptions({
+            center: pos,
+            zoom: 14,
+          });
+
+        },
+        () => {
+          handleLocationError(true, infoWindow, map.getCenter());
+        }
+      );
+    } else {
+      // Browser doesn't support Geolocation
+      handleLocationError(false, infoWindow, map.getCenter());
+    }
+  });
+    },
+    data() {
+        return {
+            lat: 0,
+            lng: 0
+        };
+    },
+    methods: {
+        notImplementedYet: function () {
+            alert('This feature is not implemented yet!');
+        },
+    },
 }
 </script>
 <style>
@@ -37,6 +120,7 @@ export default {
     flex-direction: column;
     min-width: 800px;
 }
+
 #all-cards {
     width: 80%;
     display: grid;
@@ -54,7 +138,7 @@ export default {
     #welcome-container {
         min-width: 300px;
     }
-  }
+}
 
 h1 {
     font-size: 72px;
@@ -77,6 +161,4 @@ h1 {
     width: 100%;
     height: 500px;
 }
-
-
 </style>
