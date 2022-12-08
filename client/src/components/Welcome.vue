@@ -1,6 +1,10 @@
 <template lang="html">
     <div id="welcome-container">
         <div id="map" ref="map"></div>
+        <div id="map-load">
+            <p>Map düzgün yüklenemedi 😓</p>
+            <button @click="this.showMap">yeniden dene!</button>
+        </div>
         <h1>Welcome to City Guide App</h1>
         <h2>See what happens in your city!</h2>
         <br>
@@ -34,10 +38,26 @@ export default {
         Card
     },
     mounted() {
-        setTimeout(function () {
+            this.loadMap();
+    },
+    watch: {
+
+    },
+    data() {
+        return {
+            lat: 0,
+            lng: 0
+        };
+    },
+    methods: {
+        notImplementedYet: function () {
+            alert('This feature is not implemented yet!');
+        },
+        loadMap: function(){
             var map;
             const Izmir = { lat: 38.4237, lng: 27.1428 };
-            const localContextMapView = new google.maps.localContext.LocalContextMapView({
+            if(google.maps.localContext){
+                const localContextMapView = new google.maps.localContext.LocalContextMapView({
                 element: this.$refs['map'],
                 placeTypePreferences: [
                     { type: "restaurant" },
@@ -55,11 +75,9 @@ export default {
             });
             var infoWindow = new google.maps.InfoWindow();
             const locationButton = document.createElement("button");
-
             locationButton.textContent = "Find your Location";
             locationButton.classList.add("custom-map-control-button");
             map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
-
             locationButton.addEventListener("click", () => {
                 if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(
@@ -98,18 +116,15 @@ export default {
                     handleLocationError(false, infoWindow, map.getCenter());
                 }
             });
-        }, 1000)
-    },
-    data() {
-        return {
-            lat: 0,
-            lng: 0
-        };
-    },
-    methods: {
-        notImplementedYet: function () {
-            alert('This feature is not implemented yet!');
+            }
         },
+        showMap: function() {
+            let map = document.querySelector("#map");
+            let map_load = document.querySelector("#map-load");
+            map.style.display = "block";
+            map_load.style.display = "none";
+            this.loadMap();
+        }
     },
 }
 </script>
@@ -128,13 +143,25 @@ export default {
     gap: 20px;
 }
 
-#map {
+#map,
+#map-load {
     width: 90%;
     height: 400px;
     border: 1px solid transparent;
     border-radius: 24px;
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
     padding: 8px;
+}
+
+#map {
+    display: none;
+}
+
+#map-load {
+    display: flex;
+    flex-direction: column ;
+    justify-content: center;
+    align-items: center;
 }
 
 @media only screen and (max-width: 800px) {
@@ -148,7 +175,8 @@ export default {
         min-width: 300px;
     }
 
-    #map {
+    #map,
+    #map-load {
         width: 80%;
         min-width: 300px;
         height: 250px;
