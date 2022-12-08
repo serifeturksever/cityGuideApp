@@ -12,7 +12,7 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/welcome',
+      path: '/',
       name: 'Welcome',
       component: Welcome
     },
@@ -33,7 +33,7 @@ export default new Router({
       component: NearbyAttractions
     },
     {
-      path: '/',
+      path: '/navbar',
       component: Navbar
     }
   ]

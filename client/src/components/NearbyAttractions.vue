@@ -1,6 +1,5 @@
 <template>
     <div id="container">
-        <div class="modal"></div>
         <div id="filter-result">
             <div id="filter-attraction">
                 <form>
@@ -136,7 +135,6 @@ export default {
                 center: new google.maps.LatLng(this.lat, this.lng),
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             });
-            console.log("places: ", this.places); ""
             this.places.forEach((place) => {
                 const lat = place.geometry.location.lat;
                 const lng = place.geometry.location.lng;

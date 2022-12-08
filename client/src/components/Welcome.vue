@@ -1,6 +1,6 @@
 <template lang="html">
     <div id="welcome-container">
-        <div id="map" class="ten wide column segment ui" width="500px" height="800px" ref="map"></div>
+        <div id="map" ref="map"></div>
         <h1>Welcome to City Guide App</h1>
         <h2>See what happens in your city!</h2>
         <br>
@@ -34,71 +34,71 @@ export default {
         Card
     },
     mounted() {
-        var map;
-        const Izmir = { lat: 38.4237, lng: 27.1428 };
-        const localContextMapView = new google.maps.localContext.LocalContextMapView({
-            element: this.$refs['map'],
-            placeTypePreferences: [
-                { type: "restaurant" },
-                { type: "tourist_attraction" },
-            ],
-            maxPlaceCount: 12,
-        });
+        setTimeout(function () {
+            var map;
+            const Izmir = { lat: 38.4237, lng: 27.1428 };
+            const localContextMapView = new google.maps.localContext.LocalContextMapView({
+                element: this.$refs['map'],
+                placeTypePreferences: [
+                    { type: "restaurant" },
+                    { type: "tourist_attraction" },
+                ],
+                maxPlaceCount: 12,
+            });
 
-        map = localContextMapView.map;
-        map.setOptions({
-            center: Izmir,
-            zoom: 14,
-        });
-        var infoWindow = new google.maps.InfoWindow();
-        const locationButton = document.createElement("button");
+            console.log(localContextMapView)
 
-        locationButton.textContent = "Find your Location";
-        locationButton.classList.add("custom-map-control-button");
-        map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
-        
-        locationButton.addEventListener("click", () => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const pos = {
-            lat: position.coords.latitude,
-            lng: position.coords.longitude,
-          };
-          const localContextMapView = new google.maps.localContext.LocalContextMapView({
-            element: document.getElementById("map"),
-            placeTypePreferences: [
-              "restaurant",
-              "tourist_attraction",
-              "hospital",
-              "bank",
-              "park",
-            ],
-            maxPlaceCount: 24,
-          });
-          console.log("info.window",infoWindow)
-          console.log("map",map)
-          infoWindow.setPosition(pos);
-          map = localContextMapView.map;
-          console.log("info.window",infoWindow)
-          console.log("map",map)
-          infoWindow.setContent("Location found.");
-          infoWindow.open(map);
-          map.setOptions({
-            center: pos,
-            zoom: 14,
-          });
+            map = localContextMapView.map;
+            map.setOptions({
+                center: Izmir,
+                zoom: 14,
+            });
+            var infoWindow = new google.maps.InfoWindow();
+            const locationButton = document.createElement("button");
 
-        },
-        () => {
-          handleLocationError(true, infoWindow, map.getCenter());
-        }
-      );
-    } else {
-      // Browser doesn't support Geolocation
-      handleLocationError(false, infoWindow, map.getCenter());
-    }
-  });
+            locationButton.textContent = "Find your Location";
+            locationButton.classList.add("custom-map-control-button");
+            map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
+
+            locationButton.addEventListener("click", () => {
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(
+                        (position) => {
+                            const pos = {
+                                lat: position.coords.latitude,
+                                lng: position.coords.longitude,
+                            };
+                            const localContextMapView = new google.maps.localContext.LocalContextMapView({
+                                element: document.getElementById("map"),
+                                placeTypePreferences: [
+                                    "restaurant",
+                                    "tourist_attraction",
+                                    "hospital",
+                                    "bank",
+                                    "park",
+                                ],
+                                maxPlaceCount: 24,
+                            });
+                            infoWindow.setPosition(pos);
+                            map = localContextMapView.map;
+                            infoWindow.setContent("Location found.");
+                            infoWindow.open(map);
+                            map.setOptions({
+                                center: pos,
+                                zoom: 14,
+                            });
+
+                        },
+                        () => {
+                            handleLocationError(true, infoWindow, map.getCenter());
+                        }
+                    );
+                } else {
+                    // Browser doesn't support Geolocation
+                    handleLocationError(false, infoWindow, map.getCenter());
+                }
+            });
+        }, 1000)
     },
     data() {
         return {
@@ -128,6 +128,15 @@ export default {
     gap: 20px;
 }
 
+#map {
+    width: 90%;
+    height: 400px;
+    border: 1px solid transparent;
+    border-radius: 24px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    padding: 8px;
+}
+
 @media only screen and (max-width: 800px) {
     #all-cards {
         width: 90%;
@@ -137,6 +146,12 @@ export default {
 
     #welcome-container {
         min-width: 300px;
+    }
+
+    #map {
+        width: 80%;
+        min-width: 300px;
+        height: 250px;
     }
 }
 
@@ -155,10 +170,5 @@ h1 {
 #all-cards * {
     color: black;
     text-decoration: none;
-}
-
-#map {
-    width: 100%;
-    height: 500px;
 }
 </style>
