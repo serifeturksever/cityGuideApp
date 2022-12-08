@@ -39,6 +39,14 @@ export default {
     },
     mounted() {
             this.loadMap();
+            setInterval(()=>{
+                let map = document.querySelector("#map");
+                let map_load = document.querySelector("#map-load");
+                if (map.childNodes.length == 0) {
+                    map.style.display="none";
+                    map_load.style.display="flex";
+                }
+            },200);
     },
     watch: {
 
@@ -154,11 +162,11 @@ export default {
 }
 
 #map {
-    display: none;
+    display: block;
 }
 
 #map-load {
-    display: flex;
+    display: none;
     flex-direction: column ;
     justify-content: center;
     align-items: center;
