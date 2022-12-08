@@ -1,19 +1,21 @@
 <template>
   <div id="app">
     <!-- <img src="./assets/logo.png"> -->
+    <Navbar />
     <router-view/>
   </div>
 </template>
 
 <script>
+import Navbar from './components/Navbar.vue'
 export default {
-  name: 'App'
+    name: "App",
+    components: { Navbar }
 }
 </script>
 
 <style>
 #app {
-  text-align: center; /* left de yapılabilir */
-  margin-top: 60px;
+  text-align: center;
 }
 </style>
