@@ -2,13 +2,13 @@
     <div class="nav-container">
         <div id="navbar">
             <div class="left">
-                <router-link to="/">
+                <router-link role="router-link" to="/">
                     <a style="color:black">G8</a>
                 </router-link>
-                <router-link to="/">
+                <router-link role="router-link" to="/">
                     <a>Home</a>
                 </router-link>
-                <router-link to="/nearby-attractions">
+                <router-link role="router-link" to="/nearby-attractions">
                     <a>Nearby Attractions</a>
                 </router-link>
             </div>
@@ -18,7 +18,7 @@
         </div>
 
         <div id="hamburger-menu">
-            <router-link to="/">
+            <router-link role="router-link" to="/">
                 <a class="logo" style="color:black">G8</a>
             </router-link>
             <div class="hamburger-container">
@@ -26,10 +26,10 @@
                     <font-awesome-icon id="hamburger-icon" icon="fa-solid fa-bars" size="2xl" />
                 </button>
                 <div style="display:none;" class="hamburger-links">
-                    <router-link to="/">
+                    <router-link role="router-link" to="/">
                         <a>Home</a>
                     </router-link>
-                    <router-link to="/nearby-attractions">
+                    <router-link role="router-link" to="/nearby-attractions">
                         <a>Nearby Attractions</a>
                     </router-link>
                     <a @click="this.notImplementedYet">Buy transport card</a>
@@ -41,20 +41,20 @@
 
 <script>
 export default {
-    methods: {
-        notImplementedYet: function () {
-            alert('This feature is not implemented yet!');
-        },
-        toggleHamburger: function() {
-            let hamburgerLinks = document.querySelector(".hamburger-links")
-            if (hamburgerLinks.style.display === "none") {
-                hamburgerLinks.style.display = "flex";
-                
-            } else {
-                hamburgerLinks.style.display = "none";
-            }
-        }
+  name: 'Navbar',
+  methods: {
+    notImplementedYet: function () {
+      alert('This feature is not implemented yet!')
     },
+    toggleHamburger: function () {
+      let hamburgerLinks = document.querySelector('.hamburger-links')
+      if (hamburgerLinks.style.display === 'none') {
+        hamburgerLinks.style.display = 'flex'
+      } else {
+        hamburgerLinks.style.display = 'none'
+      }
+    }
+  }
 }
 </script>
 
@@ -172,7 +172,7 @@ a:active {
     background: none;
     border: none;
     padding: 8px;
-    
+
 }
 
 #hamburger-icon {
