@@ -41,6 +41,7 @@
 
 <script>
 export default {
+    name:'Navbar',
     methods: {
         notImplementedYet: function () {
             alert('This feature is not implemented yet!');
