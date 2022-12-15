@@ -41,21 +41,20 @@
 
 <script>
 export default {
-    name:'Navbar',
-    methods: {
-        notImplementedYet: function () {
-            alert('This feature is not implemented yet!');
-        },
-        toggleHamburger: function() {
-            let hamburgerLinks = document.querySelector(".hamburger-links")
-            if (hamburgerLinks.style.display === "none") {
-                hamburgerLinks.style.display = "flex";
-                
-            } else {
-                hamburgerLinks.style.display = "none";
-            }
-        }
+  name: 'Navbar',
+  methods: {
+    notImplementedYet: function () {
+      alert('This feature is not implemented yet!')
     },
+    toggleHamburger: function () {
+      let hamburgerLinks = document.querySelector('.hamburger-links')
+      if (hamburgerLinks.style.display === 'none') {
+        hamburgerLinks.style.display = 'flex'
+      } else {
+        hamburgerLinks.style.display = 'none'
+      }
+    }
+  }
 }
 </script>
 
@@ -173,7 +172,7 @@ a:active {
     background: none;
     border: none;
     padding: 8px;
-    
+
 }
 
 #hamburger-icon {
