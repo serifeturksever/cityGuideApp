@@ -5,7 +5,7 @@ import Navbar from '../src/components/Navbar.vue'
 describe('Navbar.vue', () => {
   const wrapper = mount(Navbar)
 
-  describe.skip('should setup jest', () => {
+  describe('should setup jest', () => {
     test('should setup properly', () => {
       expect(true).toBe(true)
     })
@@ -14,7 +14,7 @@ describe('Navbar.vue', () => {
     })
   })
 
-  describe.skip('a tag tests', () => {
+  describe('a tag tests', () => {
     test('should find 4 a tag in navbar', async () => {
       const {length} = await wrapper.findAll('#navbar a')
       expect(length).toEqual(4)
@@ -25,7 +25,7 @@ describe('Navbar.vue', () => {
     })
   })
 
-  describe.skip('testing alert function when clicked -Buy Transport Card- link', () => {
+  describe('testing alert function when clicked -Buy Transport Card- link', () => {
     window.alert = jest.fn()
 
     test('link in Navbar', async () => {
