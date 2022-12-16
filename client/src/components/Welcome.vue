@@ -31,6 +31,7 @@
 
 <script>
 import Card from './Card'
+import { helper, notImplementedYet } from './../services/helpers'
 
 export default {
     name: 'Welcome',
@@ -38,18 +39,16 @@ export default {
         Card
     },
     mounted() {
-            this.loadMap();
-            setInterval(()=>{
-                let map = document.querySelector("#map");
-                let map_load = document.querySelector("#map-load");
-                if (map.childNodes.length == 0) {
-                    map.style.display="none";
-                    map_load.style.display="flex";
-                }
-            },200);
-    },
-    watch: {
-
+        helper();
+        this.loadMap();
+        setInterval(() => {
+            let map = document.querySelector("#map");
+            let map_load = document.querySelector("#map-load");
+            if (map.childNodes.length == 0) {
+                map.style.display = "none";
+                map_load.style.display = "flex";
+            }
+        }, 200);
     },
     data() {
         return {
@@ -58,75 +57,74 @@ export default {
         };
     },
     methods: {
-        notImplementedYet: function () {
-            alert('This feature is not implemented yet!');
-        },
-        loadMap: function(){
+        notImplementedYet,
+        loadMap: function () {
             var map;
             const Izmir = { lat: 38.4237, lng: 27.1428 };
-            if(google.maps.localContext){
+            if (google.maps.localContext) {
                 const localContextMapView = new google.maps.localContext.LocalContextMapView({
-                element: this.$refs['map'],
-                placeTypePreferences: [
-                    { type: "restaurant" },
-                    { type: "tourist_attraction" },
-                ],
-                maxPlaceCount: 12,
-            });
+                    element: this.$refs['map'],
+                    placeTypePreferences: [
+                        "restaurant",
+                        "tourist_attraction",
+                        "hospital",
+                        "bank",
+                        "park",
+                    ],
+                    maxPlaceCount: 24,
+                });
 
-            console.log(localContextMapView)
+                map = localContextMapView.map;
+                map.setOptions({
+                    center: Izmir,
+                    zoom: 14,
+                });
+                var infoWindow = new google.maps.InfoWindow();
+                const locationButton = document.createElement("button");
+                locationButton.textContent = "Find your Location";
+                locationButton.classList.add("custom-map-control-button");
+                map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
+                locationButton.addEventListener("click", () => {
+                    if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(
+                            (position) => {
+                                const pos = {
+                                    lat: position.coords.latitude,
+                                    lng: position.coords.longitude,
+                                };
+                                const localContextMapView = new google.maps.localContext.LocalContextMapView({
+                                    element: this.$refs['map'],
+                                    placeTypePreferences: [
+                                        "restaurant",
+                                        "tourist_attraction",
+                                        "hospital",
+                                        "bank",
+                                        "park",
+                                    ],
+                                    maxPlaceCount: 24,
+                                });
+                                infoWindow.setPosition(pos);
+                                map = localContextMapView.map;
+                                infoWindow.setContent("Location found.");
+                                infoWindow.open(map);
+                                map.setOptions({
+                                    center: pos,
+                                    zoom: 14,
+                                });
 
-            map = localContextMapView.map;
-            map.setOptions({
-                center: Izmir,
-                zoom: 14,
-            });
-            var infoWindow = new google.maps.InfoWindow();
-            const locationButton = document.createElement("button");
-            locationButton.textContent = "Find your Location";
-            locationButton.classList.add("custom-map-control-button");
-            map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
-            locationButton.addEventListener("click", () => {
-                if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(
-                        (position) => {
-                            const pos = {
-                                lat: position.coords.latitude,
-                                lng: position.coords.longitude,
-                            };
-                            const localContextMapView = new google.maps.localContext.LocalContextMapView({
-                                element: document.getElementById("map"),
-                                placeTypePreferences: [
-                                    "restaurant",
-                                    "tourist_attraction",
-                                    "hospital",
-                                    "bank",
-                                    "park",
-                                ],
-                                maxPlaceCount: 24,
-                            });
-                            infoWindow.setPosition(pos);
-                            map = localContextMapView.map;
-                            infoWindow.setContent("Location found.");
-                            infoWindow.open(map);
-                            map.setOptions({
-                                center: pos,
-                                zoom: 14,
-                            });
-
-                        },
-                        () => {
-                            handleLocationError(true, infoWindow, map.getCenter());
-                        }
-                    );
-                } else {
-                    // Browser doesn't support Geolocation
-                    handleLocationError(false, infoWindow, map.getCenter());
-                }
-            });
+                            },
+                            () => {
+                                handleLocationError(true, infoWindow, map.getCenter());
+                            }
+                        );
+                    } else {
+                        // Browser doesn't support Geolocation
+                        handleLocationError(false, infoWindow, map.getCenter());
+                    }
+                });
             }
         },
-        showMap: function() {
+        showMap: function () {
             let map = document.querySelector("#map");
             let map_load = document.querySelector("#map-load");
             map.style.display = "block";
@@ -167,7 +165,7 @@ export default {
 
 #map-load {
     display: none;
-    flex-direction: column ;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }

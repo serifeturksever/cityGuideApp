@@ -40,11 +40,11 @@
 </template>
 
 <script>
+import { notImplementedYet } from './../services/helpers'
+
 export default {
     methods: {
-        notImplementedYet: function () {
-            alert('This feature is not implemented yet!');
-        },
+        notImplementedYet,
         toggleHamburger: function() {
             let hamburgerLinks = document.querySelector(".hamburger-links")
             if (hamburgerLinks.style.display === "none") {
