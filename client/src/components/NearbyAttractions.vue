@@ -42,10 +42,11 @@
                 <div v-for="place in places" :key="place.id">
                     <div class="list-el">
                         <div class="left">
-                            <h4>{{ place.name }}</h4>
-                            <div style="font-size:16px">{{ place.vicinity }}</div>
+                            <h4 style="margin-left:8px;width:50%">{{ place.name }}</h4>
+                            <div style="font-size:16px;margin-left:8px;width:50%;">{{ place.vicinity }}</div>
                         </div>
-                        <div class="star">star: {{ (place.rating ? place.rating : "no info") }}</div>
+                        <div class="star" v-html="getStars(place.rating)"></div>
+                        <!-- <div class="star">{{ this.getStars(3) }}</div> -->
                     </div>
                     <hr>
                 </div>
@@ -150,6 +151,30 @@ export default {
             });
 
 
+        },
+        getStars: function(rating){
+
+            if(!rating){
+                return "No info :("
+            } else {
+                // Round to nearest half
+                rating = Math.round(rating * 2) / 2;
+                let output = [];
+
+                // Append all the filled whole stars
+                for (var i = rating; i >= 1; i--)
+                    output.push('<i class="fa fa-star fa-lg" aria-hidden="true" style="color: gold;"></i>&nbsp;');
+
+                // If there is a half a star, append it
+                if (i == .5) output.push('<i class="fa fa-star-half-o fa-lg" aria-hidden="true" style="color: gold;"></i>&nbsp;');
+
+                // Fill the empty stars
+                for (let i = (5 - rating); i >= 1; i--)
+                    output.push('<i class="fa fa-star-o fa-lg" aria-hidden="true" style="color: gold;"></i>&nbsp;');
+
+                return output.join('');
+            }
+            
         }
     }
 }
@@ -390,11 +415,18 @@ input {
     width: 75%;
     text-align: left;
     margin-left: 16px;
+    margin-right: 16px;
 }
 
 .star {
     width: 25%;
     text-align: end;
-    margin-right: 32px
+    margin-right: 24px
+}
+
+.list-el > * {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 </style>
