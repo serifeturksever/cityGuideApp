@@ -46,7 +46,6 @@
                             <div style="font-size:16px;margin-left:8px;width:50%;">{{ place.vicinity }}</div>
                         </div>
                         <div class="star" v-html="getStars(place.rating)"></div>
-                        <!-- <div class="star">{{ this.getStars(3) }}</div> -->
                     </div>
                     <hr>
                 </div>
@@ -136,6 +135,7 @@ export default {
                 center: new google.maps.LatLng(this.lat, this.lng),
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             });
+            console.log("places: ",places);
             this.places.forEach((place) => {
                 const lat = place.geometry.location.lat;
                 const lng = place.geometry.location.lng;
@@ -145,7 +145,11 @@ export default {
                 });
 
                 google.maps.event.addListener(marker, "click", () => {
-                    infowindow.setContent(`<div class="ui header">${place.name}</div><p>${place.vicinity}</p>`);
+                    infowindow.setContent(`
+                    <div class="ui header">${place.name}</div>
+                    <p>${place.vicinity}</p>
+                    <p><i class="fa fa-star fa-lg" aria-hidden="true" style="color: gold;"></i>&nbsp; ${place.rating}</p>`
+                    );
                     infowindow.open(map, marker);
                 });
             });
