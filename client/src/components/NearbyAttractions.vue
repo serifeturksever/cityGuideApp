@@ -39,7 +39,11 @@
                 border-radius: 4px;
                 box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
                 display:none">
-                <div v-for="place in places" :key="place.id">
+                <div
+                v-for="place in places" 
+                :key="place.id"
+                @click="showOnMap()"
+                >
                     <div class="list-el">
                         <div class="left">
                             <h4 style="margin-left:8px;width:50%">{{ place.name }}</h4>
@@ -116,7 +120,7 @@ export default {
             let type_str = this.type == 'all' ? '' : `&type=${this.type}`
             const URL = `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${this.lat
                 },${this.lng}${type_str}&radius=${this.radius *
-                1000}&key=AIzaSyA6VsFQVixA00O1Qg4_wKy_WuaVa77zc5I`;
+                1000}&key=AIzaSyAN4mAPIR6NfoaZsKvVz4FF0x8X01acxaw`;
             axios.get(URL).then(response => {
                 this.places = response.data.results;
                 this.addLocationsToGoogleMaps();
@@ -135,7 +139,7 @@ export default {
                 center: new google.maps.LatLng(this.lat, this.lng),
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             });
-            console.log("places: ",places);
+            console.log("places: ",this.places);
             this.places.forEach((place) => {
                 const lat = place.geometry.location.lat;
                 const lng = place.geometry.location.lng;
@@ -179,6 +183,9 @@ export default {
                 return output.join('');
             }
             
+        },
+        showOnMap: function(){
+            console.log("clicked");
         }
     }
 }

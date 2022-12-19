@@ -31,7 +31,7 @@
 
 <script>
 import Card from './Card'
-import { helper, notImplementedYet } from './../services/helpers'
+import { notImplementedYet } from './../services/helpers'
 
 export default {
     name: 'Welcome',
@@ -39,14 +39,13 @@ export default {
         Card
     },
     mounted() {
-        helper();
         this.loadMap();
         setInterval(() => {
             let map = document.querySelector("#map");
             let map_load = document.querySelector("#map-load");
             if (map.childNodes.length == 0) {
-                map.style.display = "none";
-                map_load.style.display = "flex";
+                if(map) map.style.display = "none";
+                if(map_load) map_load.style.display = "flex";
             }
         }, 200);
     },
@@ -127,8 +126,8 @@ export default {
         showMap: function () {
             let map = document.querySelector("#map");
             let map_load = document.querySelector("#map-load");
-            map.style.display = "block";
-            map_load.style.display = "none";
+            if(map) map.style.display = "block";
+            if(map_load) map_load.style.display = "none";
             this.loadMap();
         }
     },
