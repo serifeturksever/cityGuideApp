@@ -6,7 +6,8 @@
 
 <script>
 export default {
-    props: ["title"]
+  name: 'Card',
+  props: ['title']
 }
 </script>
 
@@ -25,6 +26,3 @@ export default {
     text-align: center;
 }
 </style>
-
-
-
