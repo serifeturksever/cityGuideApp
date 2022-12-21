@@ -8,13 +8,14 @@
       <img class="ui centered medium rounded image" :src="imgSrc" alt="img" />
     </div>
   </div>
+
 </template>
 
 <script>
 export default {
   name: "Card",
   props: ["title", "imgSrc"]
-}
+};
 </script>
 
 <style>
@@ -22,15 +23,21 @@ export default {
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: 1rem 1rem 1rem 0;
+  padding: 0.6rem;
   justify-content: center;
   height: 100%;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
+  background: rgba(235, 233, 233, 0.769);
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
   border-radius: 1.2rem;
+}
+
+.header {
+  padding-top: 0.5rem;
 }
 
 .img-container {
   position: relative;
+  padding: 1rem;
   width: 100%;
   height: 100%;
   display: flex;

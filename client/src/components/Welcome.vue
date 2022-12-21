@@ -1,17 +1,17 @@
 <template lang="html">
   <div id="welcome-container">
+    <h1>Welcome to City Guide App</h1>
+    <h2>See what happens in your city!</h2>
     <div id="map" ref="map"></div>
     <div id="map-load">
       <p>Map düzgün yüklenemedi 😓</p>
       <button @click="this.showMap">yeniden dene!</button>
     </div>
-    <h1>Welcome to City Guide App</h1>
-    <h2>See what happens in your city!</h2>
-    <br />
+
     <div id="all-cards">
       <a @click="this.notImplementedYet">
         <Card
-          title="News,Events & Tips"
+          title="News & Events & Tips"
           v-bind:imgSrc="require('../assets/event.png')"
         />
       </a>
@@ -44,7 +44,7 @@
 </template>
 
 <script>
-import Card from "./Card.vue"
+import Card from "./Card.vue";
 
 export default {
   name: "Welcome",
@@ -52,30 +52,30 @@ export default {
     Card
   },
   mounted() {
-    this.loadMap()
+    this.loadMap();
     setInterval(() => {
-      let map = document.querySelector("#map")
-      let map_load = document.querySelector("#map-load")
+      let map = document.querySelector("#map");
+      let map_load = document.querySelector("#map-load");
       if (map.childNodes.length == 0) {
-        map.style.display = "none"
-        map_load.style.display = "flex"
+        map.style.display = "none";
+        map_load.style.display = "flex";
       }
-    }, 200)
+    }, 200);
   },
   watch: {},
   data() {
     return {
       lat: 0,
       lng: 0
-    }
+    };
   },
   methods: {
     notImplementedYet: function() {
-      alert("This feature is not implemented yet!")
+      alert("This feature is not implemented yet!");
     },
     loadMap: function() {
-      var map
-      const Izmir = { lat: 38.4237, lng: 27.1428 }
+      var map;
+      const Izmir = { lat: 38.4237, lng: 27.1428 };
       if (google.maps.localContext) {
         const localContextMapView = new google.maps.localContext.LocalContextMapView(
           {
@@ -86,30 +86,30 @@ export default {
             ],
             maxPlaceCount: 12
           }
-        )
+        );
 
-        console.log(localContextMapView)
+        console.log(localContextMapView);
 
-        map = localContextMapView.map
+        map = localContextMapView.map;
         map.setOptions({
           center: Izmir,
           zoom: 14
-        })
-        var infoWindow = new google.maps.InfoWindow()
-        const locationButton = document.createElement("button")
-        locationButton.textContent = "Find your Location"
-        locationButton.classList.add("custom-map-control-button")
+        });
+        var infoWindow = new google.maps.InfoWindow();
+        const locationButton = document.createElement("button");
+        locationButton.textContent = "Find your Location";
+        locationButton.classList.add("custom-map-control-button");
         map.controls[google.maps.ControlPosition.TOP_CENTER].push(
           locationButton
-        )
+        );
         locationButton.addEventListener("click", () => {
           if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
-              (position) => {
+              position => {
                 const pos = {
                   lat: position.coords.latitude,
                   lng: position.coords.longitude
-                }
+                };
                 const localContextMapView = new google.maps.localContext.LocalContextMapView(
                   {
                     element: document.getElementById("map"),
@@ -122,36 +122,36 @@ export default {
                     ],
                     maxPlaceCount: 24
                   }
-                )
-                infoWindow.setPosition(pos)
-                map = localContextMapView.map
-                infoWindow.setContent("Location found.")
-                infoWindow.open(map)
+                );
+                infoWindow.setPosition(pos);
+                map = localContextMapView.map;
+                infoWindow.setContent("Location found.");
+                infoWindow.open(map);
                 map.setOptions({
                   center: pos,
                   zoom: 14
-                })
+                });
               },
               () => {
-                handleLocationError(true, infoWindow, map.getCenter())
+                handleLocationError(true, infoWindow, map.getCenter());
               }
-            )
+            );
           } else {
             // Browser doesn't support Geolocation
-            handleLocationError(false, infoWindow, map.getCenter())
+            handleLocationError(false, infoWindow, map.getCenter());
           }
-        })
+        });
       }
     },
     showMap: function() {
-      let map = document.querySelector("#map")
-      let map_load = document.querySelector("#map-load")
-      map.style.display = "block"
-      map_load.style.display = "none"
-      this.loadMap()
+      let map = document.querySelector("#map");
+      let map_load = document.querySelector("#map-load");
+      map.style.display = "block";
+      map_load.style.display = "none";
+      this.loadMap();
     }
   }
-}
+};
 </script>
 <style>
 #welcome-container {
@@ -162,20 +162,22 @@ export default {
 }
 
 #all-cards {
-  padding: 4rem;
+  margin: 5rem auto;
+  width: 75%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
+  grid-template-rows: repeat(2,1fr);
+  gap: 3rem;
 }
 
 #map,
 #map-load {
-  width: 90%;
+  width: 70%;
   height: 400px;
   border: 1px solid transparent;
   border-radius: 24px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  padding: 8px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
+  padding: 1rem;
 }
 
 #map {
@@ -190,10 +192,15 @@ export default {
 }
 
 @media only screen and (max-width: 800px) {
+  h1{
+  font-size: 3rem;
+
+  }
   #all-cards {
     width: 90%;
     display: grid;
-    grid-template-columns: 100%;
+    grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2,1fr);
   }
 }
 
@@ -203,26 +210,27 @@ export default {
 
 #map,
 #map-load {
-  width: 80%;
+  width: 70%;
   min-width: 300px;
   height: 250px;
+  margin: 1rem auto;
 }
 
 h1 {
-  font-size: 72px;
-  background: -webkit-linear-gradient(rgb(7, 30, 233), rgb(14, 217, 119));
+  font-size: 4.3rem;
+  background: -webkit-linear-gradient(rgb(9, 9, 9), rgba(21, 33, 27, 0.648));
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
 #all-cards *:hover {
-  color: cadetblue;
+  color: rgb(27, 29, 29);
   cursor: pointer;
 }
 
 #all-cards * {
-  color: black;
+  color: rgba(0, 0, 0, 0.768);
   text-decoration: none;
 }
 </style>
