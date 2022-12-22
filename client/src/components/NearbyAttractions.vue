@@ -39,13 +39,17 @@
                 border-radius: 4px;
                 box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
                 display:none">
-                <div v-for="place in places" :key="place.id">
+                <div
+                v-for="place in places" 
+                :key="place.id"
+                @click="showOnMap()"
+                >
                     <div class="list-el">
                         <div class="left">
-                            <h4>{{ place.name }}</h4>
-                            <div style="font-size:16px">{{ place.vicinity }}</div>
+                            <h4 style="margin-left:8px;width:50%">{{ place.name }}</h4>
+                            <div style="font-size:16px;margin-left:8px;width:50%;">{{ place.vicinity }}</div>
                         </div>
-                        <div class="star">star: {{ (place.rating ? place.rating : "no info") }}</div>
+                        <div class="star" v-html="getStars(place.rating)"></div>
                     </div>
                     <hr>
                 </div>
@@ -116,7 +120,7 @@ export default {
             let type_str = this.type == 'all' ? '' : `&type=${this.type}`
             const URL = `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${this.lat
                 },${this.lng}${type_str}&radius=${this.radius *
-                1000}&key=AIzaSyA6VsFQVixA00O1Qg4_wKy_WuaVa77zc5I`;
+                1000}&key=AIzaSyAN4mAPIR6NfoaZsKvVz4FF0x8X01acxaw`;
             axios.get(URL).then(response => {
                 this.places = response.data.results;
                 this.addLocationsToGoogleMaps();
@@ -144,12 +148,43 @@ export default {
                 });
 
                 google.maps.event.addListener(marker, "click", () => {
-                    infowindow.setContent(`<div class="ui header">${place.name}</div><p>${place.vicinity}</p>`);
+                    infowindow.setContent(`
+                    <div class="ui header">${place.name}</div>
+                    <p>${place.vicinity}</p>
+                    <p><i class="fa fa-star fa-lg" aria-hidden="true" style="color: gold;"></i>&nbsp; ${place.rating}</p>`
+                    );
                     infowindow.open(map, marker);
                 });
             });
 
 
+        },
+        getStars: function(rating){
+
+            if(!rating){
+                return "No info :("
+            } else {
+                // Round to nearest half
+                rating = Math.round(rating * 2) / 2;
+                let output = [];
+
+                // Append all the filled whole stars
+                for (var i = rating; i >= 1; i--)
+                    output.push('<i class="fa fa-star fa-lg" aria-hidden="true" style="color: gold;"></i>&nbsp;');
+
+                // If there is a half a star, append it
+                if (i == .5) output.push('<i class="fa fa-star-half-o fa-lg" aria-hidden="true" style="color: gold;"></i>&nbsp;');
+
+                // Fill the empty stars
+                for (let i = (5 - rating); i >= 1; i--)
+                    output.push('<i class="fa fa-star-o fa-lg" aria-hidden="true" style="color: gold;"></i>&nbsp;');
+
+                return output.join('');
+            }
+            
+        },
+        showOnMap: function(){
+            console.log("clicked");
         }
     }
 }
@@ -390,11 +425,18 @@ input {
     width: 75%;
     text-align: left;
     margin-left: 16px;
+    margin-right: 16px;
 }
 
 .star {
     width: 25%;
     text-align: end;
-    margin-right: 32px
+    margin-right: 24px
+}
+
+.list-el > * {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 </style>
