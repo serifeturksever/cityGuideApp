@@ -1,4 +1,5 @@
 export const places = [
+    // * Tourist Attraction
     {
         id: "ChIJa5UWmPfYuxQRp-muszhGrU0",
         name: "İzmir Aziz Yuhanna Katolik Kilisesi - Merkez Katolik Kilise ve Bazilikası",
@@ -11,24 +12,5 @@ export const places = [
         description: "",
         establishment_date: -1
     },
-    {
-        id: ,
-        description: "",
-        establishment_date: 
-    }
-    {
-        id: ,
-        description: "",
-        establishment_date: 
-    }
-    {
-        id: ,
-        description: "",
-        establishment_date: 
-    },
-    {
-        id: ,
-        description: "",
-        establishment_date: 
-    }
+    // * Museums
     ]
