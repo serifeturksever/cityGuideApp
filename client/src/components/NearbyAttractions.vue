@@ -74,27 +74,14 @@ export default {
             radius: "",
             places: [],
             attractions: [
-                {value: "all",name: "See All Attractions"},
-                {value: "restaurant",name: "Restaurant"},
-                {value: "travel_agency",name: "Travel Agency"},
-                {value: "hospital",name: "Hospital"},
-                {value: "hair_care",name: "Hair Care"},
-                {value: "stadium",name: "Stadium"},
-                {value: "police",name: "Police"},
-                {value: "pharmacy",name: "Pharmacy"},
-                {value: "night_club",name: "Night Club"},
                 {value: "museum",name: "Museum"},
                 {value: "mosque",name: "Mosque"},
-                {value: "amusement_park",name: "Amusement Park"},
-                {value: "art_gallery",name: "Art Gallery"}
+                {value: "art_gallery",name: "Art Gallery"},
+                {value: "tourist_attraction",name: "Touristic Attraction"} /* Historical Places */
             ],
             distances: [
-                {value: 1},
-                {value: 5},
                 {value: 10},
-                {value: 15},
                 {value: 20},
-                {value: 25},
                 {value: 50}
             ]
         };
@@ -139,6 +126,7 @@ export default {
                 center: new google.maps.LatLng(this.lat, this.lng),
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             });
+            console.log(this.places);
             this.places.forEach((place) => {
                 const lat = place.geometry.location.lat;
                 const lng = place.geometry.location.lng;
