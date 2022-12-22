@@ -13,7 +13,9 @@
                 </router-link>
             </div>
             <div class="right">
-                <a @click="this.notImplementedYet">Buy transport card</a>
+                <router-link to="/public-transport-card">
+                    <a>Public transport Card</a>
+                </router-link>
             </div>
         </div>
 

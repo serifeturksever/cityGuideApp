@@ -146,6 +146,7 @@ export default {
     display: grid;
     grid-template-columns: auto auto;
     gap: 20px;
+    margin-bottom: 5vh;
 }
 
 #map,
