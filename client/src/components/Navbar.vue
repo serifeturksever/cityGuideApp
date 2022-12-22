@@ -47,18 +47,15 @@ import { notImplementedYet } from './../services/helpers'
 export default {
   name: 'Navbar',
   methods: {
-        notImplementedYet,
-        toggleHamburger: function() 
-        {
-            let hamburgerLinks = document.querySelector(".hamburger-links")
-            if (hamburgerLinks.style.display === "none") {
-                hamburgerLinks.style.display = "flex";
-                
-            } else {
-                hamburgerLinks.style.display = "none";
-            }
-        }
-    },
+    notImplementedYet,
+    toggleHamburger: function () {
+      let hamburgerLinks = document.querySelector('.hamburger-links')
+      if (hamburgerLinks.style.display === 'none') {
+        hamburgerLinks.style.display = 'flex'
+      } else {
+        hamburgerLinks.style.display = 'none'
+      }
+    }
   }
 }
 </script>

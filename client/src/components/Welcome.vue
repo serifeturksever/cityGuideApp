@@ -48,105 +48,103 @@ import Card from './Card'
 import { notImplementedYet } from './../services/helpers'
 
 export default {
-    name: 'Welcome',
-    components: {
-        Card
-    },
-    mounted() {
-        this.loadMap();
-        setInterval(() => {
-            let map = document.querySelector("#map");
-            let map_load = document.querySelector("#map-load");
-            if (map.childNodes.length == 0) {
-                if(map) map.style.display = "none";
-                if(map_load) map_load.style.display = "flex";
-            }
-        }, 200);
-    },
-    data() {
-        return {
-            lat: 0,
-            lng: 0
-        };
-    },
-    methods: {
-        notImplementedYet,
-        loadMap: function () {
-            var map;
-            const Izmir = { lat: 38.4237, lng: 27.1428 };
-            if (google.maps.localContext) {
+  name: 'Welcome',
+  components: {
+    Card
+  },
+  mounted () {
+    this.loadMap()
+    setInterval(() => {
+      let map = document.querySelector('#map')
+      let map_load = document.querySelector('#map-load')
+      if (map.childNodes.length == 0) {
+        if (map) map.style.display = 'none'
+        if (map_load) map_load.style.display = 'flex'
+      }
+    }, 200)
+  },
+  data () {
+    return {
+      lat: 0,
+      lng: 0
+    }
+  },
+  methods: {
+    notImplementedYet,
+    loadMap: function () {
+      var map
+      const Izmir = { lat: 38.4237, lng: 27.1428 }
+      if (google.maps.localContext) {
+        const localContextMapView = new google.maps.localContext.LocalContextMapView({
+          element: this.$refs['map'],
+          placeTypePreferences: [
+            'restaurant',
+            'tourist_attraction',
+            'hospital',
+            'bank',
+            'park'
+          ],
+          maxPlaceCount: 24
+        })
+
+        map = localContextMapView.map
+        map.setOptions({
+          center: Izmir,
+          zoom: 14
+        })
+        var infoWindow = new google.maps.InfoWindow()
+        const locationButton = document.createElement('button')
+        locationButton.textContent = 'Find your Location'
+        locationButton.classList.add('custom-map-control-button')
+        map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton)
+        locationButton.addEventListener('click', () => {
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+              (position) => {
+                const pos = {
+                  lat: position.coords.latitude,
+                  lng: position.coords.longitude
+                }
                 const localContextMapView = new google.maps.localContext.LocalContextMapView({
-                    element: this.$refs['map'],
-                    placeTypePreferences: [
-                        "restaurant",
-                        "tourist_attraction",
-                        "hospital",
-                        "bank",
-                        "park",
-                    ],
-                    maxPlaceCount: 24,
-                });
-
-                map = localContextMapView.map;
+                  element: this.$refs['map'],
+                  placeTypePreferences: [
+                    'restaurant',
+                    'tourist_attraction',
+                    'hospital',
+                    'bank',
+                    'park'
+                  ],
+                  maxPlaceCount: 24
+                })
+                infoWindow.setPosition(pos)
+                map = localContextMapView.map
+                infoWindow.setContent('Location found.')
+                infoWindow.open(map)
                 map.setOptions({
-                    center: Izmir,
-                    zoom: 14,
-                });
-                var infoWindow = new google.maps.InfoWindow();
-                const locationButton = document.createElement("button");
-                locationButton.textContent = "Find your Location";
-                locationButton.classList.add("custom-map-control-button");
-                map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
-                locationButton.addEventListener("click", () => {
-                    if (navigator.geolocation) {
-                        navigator.geolocation.getCurrentPosition(
-                            (position) => {
-                                const pos = {
-                                    lat: position.coords.latitude,
-                                    lng: position.coords.longitude,
-                                };
-                                const localContextMapView = new google.maps.localContext.LocalContextMapView({
-                                    element: this.$refs['map'],
-                                    placeTypePreferences: [
-                                        "restaurant",
-                                        "tourist_attraction",
-                                        "hospital",
-                                        "bank",
-                                        "park",
-                                    ],
-                                    maxPlaceCount: 24,
-                                });
-                                infoWindow.setPosition(pos);
-                                map = localContextMapView.map;
-                                infoWindow.setContent("Location found.");
-                                infoWindow.open(map);
-                                map.setOptions({
-                                    center: pos,
-                                    zoom: 14,
-                                });
-
-                            },
-                            () => {
-                                handleLocationError(true, infoWindow, map.getCenter());
-                            }
-                        );
-                    } else {
-                        // Browser doesn't support Geolocation
-                        handleLocationError(false, infoWindow, map.getCenter());
-                    }
-                });
-            }
-        },
-        showMap: function () {
-            let map = document.querySelector("#map");
-            let map_load = document.querySelector("#map-load");
-            if(map) map.style.display = "block";
-            if(map_load) map_load.style.display = "none";
-            this.loadMap();
-        }
+                  center: pos,
+                  zoom: 14
+                })
+              },
+              () => {
+                handleLocationError(true, infoWindow, map.getCenter())
+              }
+            )
+          } else {
+            // Browser doesn't support Geolocation
+            handleLocationError(false, infoWindow, map.getCenter())
+          }
+        })
+      }
     },
+    showMap: function () {
+      let map = document.querySelector('#map')
+      let map_load = document.querySelector('#map-load')
+      if (map) map.style.display = 'block'
+      if (map_load) map_load.style.display = 'none'
+      this.loadMap()
+    }
   }
-};
+}
 </script>
 <style>
 #welcome-container {
