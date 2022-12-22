@@ -6,10 +6,10 @@ export const places = [
         establishment_date: 1862
     },
     {
-        id: ,
+        id: "ChIJtUEWiFjYuxQRi-P_IWn4s8I",
         name: "ECN ART GALLERY",
         description: "",
-        establishment_date: 
+        establishment_date: -1
     },
     {
         id: ,
