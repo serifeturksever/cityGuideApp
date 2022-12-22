@@ -75,6 +75,7 @@ export default {
             radius: "",
             places: [],
             attractions: [
+                {value: "all",name: "All"},
                 {value: "museum",name: "Museum"},
                 {value: "mosque",name: "Mosque"},
                 {value: "art_gallery",name: "Art Gallery"},

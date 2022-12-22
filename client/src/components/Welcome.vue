@@ -72,8 +72,8 @@ export default {
                     ],
                     maxPlaceCount: 24,
                 });
-
                 map = localContextMapView.map;
+                
                 map.setOptions({
                     center: Izmir,
                     zoom: 14,
