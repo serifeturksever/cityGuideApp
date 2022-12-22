@@ -1,7 +1,30 @@
 <template lang="html">
   <div id="welcome-container">
     <h1>Welcome to City Guide App</h1>
-    <h2>See what happens in your city!</h2>
+    <h2>Discover your city before it's too late!</h2>
+    <div class="ui container social">
+      <SocialFeed
+        author="John Doe"
+        where="Rome"
+        date="4 days ago"
+        summary="added 1 new photos"
+        v-bind:imgSrc="require('../assets/rome.jpg')"
+        likeCount=4
+      />
+      <SocialFeed
+        author="Giovan Clerk"
+        where="Florence"
+        date="2 hours ago"
+        v-bind:imgSrc="require('../assets/florence.jpg')"
+        desc="Ours is a life of constant reruns. We're always circling back to where we'd we started, then starting all over again."
+        likeCount=65
+      />
+      <SocialFeed
+      author="Michel Surf"
+      date="09.14.2023"
+      summary="going to join 'Yoga Session with Abele'"
+      />
+    </div>
     <div id="map" ref="map"></div>
     <div id="map-load">
       <p>Map düzgün yüklenemedi 😓</p>
@@ -44,109 +67,120 @@
 </template>
 
 <script>
-import Card from './Card'
-import { notImplementedYet } from './../services/helpers'
+import Card from "./Card";
+import SocialFeed from "./SocialFeed.vue";
+import { notImplementedYet } from "./../services/helpers";
 
 export default {
-  name: 'Welcome',
+  name: "Welcome",
   components: {
-    Card
+    Card,
+    SocialFeed
   },
-  mounted () {
-    this.loadMap()
+  mounted() {
+    this.loadMap();
     setInterval(() => {
-      let map = document.querySelector('#map')
-      let map_load = document.querySelector('#map-load')
+      let map = document.querySelector("#map");
+      let map_load = document.querySelector("#map-load");
       if (map.childNodes.length == 0) {
-        if (map) map.style.display = 'none'
-        if (map_load) map_load.style.display = 'flex'
+        if (map) map.style.display = "none";
+        if (map_load) map_load.style.display = "flex";
       }
-    }, 200)
+    }, 200);
   },
-  data () {
+  data() {
     return {
       lat: 0,
       lng: 0
-    }
+    };
   },
   methods: {
     notImplementedYet,
-    loadMap: function () {
-      var map
-      const Izmir = { lat: 38.4237, lng: 27.1428 }
+    loadMap: function() {
+      var map;
+      const Izmir = { lat: 38.4237, lng: 27.1428 };
       if (google.maps.localContext) {
-        const localContextMapView = new google.maps.localContext.LocalContextMapView({
-          element: this.$refs['map'],
-          placeTypePreferences: [
-            'restaurant',
-            'tourist_attraction',
-            'hospital',
-            'bank',
-            'park'
-          ],
-          maxPlaceCount: 24
-        })
+        const localContextMapView = new google.maps.localContext.LocalContextMapView(
+          {
+            element: this.$refs["map"],
+            placeTypePreferences: [
+              "restaurant",
+              "tourist_attraction",
+              "hospital",
+              "bank",
+              "park"
+            ],
+            maxPlaceCount: 24
+          }
+        );
 
-        map = localContextMapView.map
+        map = localContextMapView.map;
         map.setOptions({
           center: Izmir,
           zoom: 14
-        })
-        var infoWindow = new google.maps.InfoWindow()
-        const locationButton = document.createElement('button')
-        locationButton.textContent = 'Find your Location'
-        locationButton.classList.add('custom-map-control-button')
-        map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton)
-        locationButton.addEventListener('click', () => {
+        });
+        var infoWindow = new google.maps.InfoWindow();
+        const locationButton = document.createElement("button");
+        locationButton.textContent = "Find your Location";
+        locationButton.classList.add("custom-map-control-button");
+        map.controls[google.maps.ControlPosition.TOP_CENTER].push(
+          locationButton
+        );
+        locationButton.addEventListener("click", () => {
           if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
-              (position) => {
+              position => {
                 const pos = {
                   lat: position.coords.latitude,
                   lng: position.coords.longitude
-                }
-                const localContextMapView = new google.maps.localContext.LocalContextMapView({
-                  element: this.$refs['map'],
-                  placeTypePreferences: [
-                    'restaurant',
-                    'tourist_attraction',
-                    'hospital',
-                    'bank',
-                    'park'
-                  ],
-                  maxPlaceCount: 24
-                })
-                infoWindow.setPosition(pos)
-                map = localContextMapView.map
-                infoWindow.setContent('Location found.')
-                infoWindow.open(map)
+                };
+                const localContextMapView = new google.maps.localContext.LocalContextMapView(
+                  {
+                    element: this.$refs["map"],
+                    placeTypePreferences: [
+                      "restaurant",
+                      "tourist_attraction",
+                      "hospital",
+                      "bank",
+                      "park"
+                    ],
+                    maxPlaceCount: 24
+                  }
+                );
+                infoWindow.setPosition(pos);
+                map = localContextMapView.map;
+                infoWindow.setContent("Location found.");
+                infoWindow.open(map);
                 map.setOptions({
                   center: pos,
                   zoom: 14
-                })
+                });
               },
               () => {
-                handleLocationError(true, infoWindow, map.getCenter())
+                handleLocationError(true, infoWindow, map.getCenter());
               }
-            )
+            );
           } else {
             // Browser doesn't support Geolocation
-            handleLocationError(false, infoWindow, map.getCenter())
+            handleLocationError(false, infoWindow, map.getCenter());
           }
-        })
+        });
       }
     },
-    showMap: function () {
-      let map = document.querySelector('#map')
-      let map_load = document.querySelector('#map-load')
-      if (map) map.style.display = 'block'
-      if (map_load) map_load.style.display = 'none'
-      this.loadMap()
+    showMap: function() {
+      let map = document.querySelector("#map");
+      let map_load = document.querySelector("#map-load");
+      if (map) map.style.display = "block";
+      if (map_load) map_load.style.display = "none";
+      this.loadMap();
     }
   }
-}
+};
 </script>
 <style>
+.social {
+  padding: 4rem;
+}
 #welcome-container {
   display: flex;
   align-items: center;
@@ -159,7 +193,7 @@ export default {
   width: 75%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2,1fr);
+  grid-template-rows: repeat(2, 1fr);
   gap: 3rem;
 }
 
@@ -182,19 +216,17 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-
 }
 
 @media only screen and (max-width: 800px) {
-  h1{
-  font-size: 3rem;
-
+  h1 {
+    font-size: 3rem;
   }
   #all-cards {
     width: 90%;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2,1fr);
+    grid-template-rows: repeat(2, 1fr);
   }
 }
 

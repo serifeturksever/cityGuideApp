@@ -1,36 +1,59 @@
 <template>
-    <div class="transport-card-container">
-        <h2><strong>Kartına bakiye yüklemek artık çok kolay.</strong></h2>
-        <form id="bakiye-form">
-            <div class="part-1">
-                <input type="text" name="name" placeholder="Name" />
-                <input type="text" name="surname" placeholder="Surname" />
-            </div>
-            <div class="part-2">
-                <input type="text" name="phoneNumber" placeholder="Phone Number" />
-            </div>
-            <div class="part-3">
-                <input type="text" name="cityName" placeholder="City Name" />
-            </div>
-            <div class="part-4">
-                <input type="number" name="amountOfMoney" placeholder="Amount Of Money" />
-            </div>
-            <div class="part-5">
-                <input type="number" name="cardNumber" placeholder="Card Number" />
-            </div>
-
-            <div class="part-6">
-                <input type="month" name="expiredDate" value="2022-12" id="expiredDate" />
-                <input type="number" name="cvv" placeholder="cvv" />
-            </div>
-
-            <input type="submit" value="yükle" @click="this.notImplementedYet" />
+  <div>
+    <h2><strong> Now it's easy to top up balance! </strong></h2>
+    <div class="ui container">
+        <form class="form">
+          <div class="ui input flexbox">
+            <input type="text" name="name" placeholder="Ali" />
+            <input type="text" name="surname" placeholder="Candan" />
+          </div>
+          <div class="ui input labeled">
+            <div class="ui label">+90</div>
+            <input type="text" name="phoneNumber" placeholder="5xxx xxx xx xx" />
+          </div>
+          <div class="ui input ">
+            <input type="text" name="cityName" placeholder="İstanbul" />
+          </div>
+          <div class="ui input labeled">
+            <input
+              type="number"
+              name="amountOfMoney"
+              placeholder="25"
+            />
+            <div class="ui label"><i class="lira sign icon"></i></div>
+          </div>
+          <div class="ui input labeled">
+            <div class="ui label"><i class="credit card outline icon"></i></div>
+            <input type="number" name="cardNumber" placeholder="xxxx xxxx xxxx xx xx" />
+          </div>
+          <div class="ui input flexbox">
+            <input
+              type="month"
+              name="expiredDate"
+              value="2022-12"
+              id="expiredDate"
+            />
+            <input type="number" name="cvv" placeholder="xxx" minlength="000" maxlength="999" />
+          </div>
+          <div>
+            <button
+            @click="this.notImplementedYet"
+            class="ui right labeled icon button right floated"
+          >
+            <i class="right arrow icon"></i>
+            Top Up!
+          </button>
+          </div>
         </form>
-        <h2><strong>Merhaba UserG8 ✋. Mevcut bakiyen <i>12.48₺</i></strong></h2>
     </div>
+    <h2>
+      <strong>Hi UserG8 ✋ Your current balance is <i>12.48₺.</i></strong>
+    </h2>
+  </div>
 </template>
 
 <!-- 
+    Form Yapısı
 name    surname
 phone number
 city name
@@ -40,89 +63,27 @@ expired date    cvv
  -->
 
 <script>
-import { notImplementedYet } from './../services/helpers'
+import { notImplementedYet } from "./../services/helpers";
 export default {
-    methods: {
-        notImplementedYet
-    }
-}
+  methods: {
+    notImplementedYet
+  }
+};
 </script>
 
 <style>
-.transport-card-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-}
-
-#bakiye-form {
+.form{
     display: flex;
     flex-direction: column;
-    border: 1px solid transparent;
-    justify-content: space-evenly;
-    width: 50%;
-    height: 50vh;
-    align-items: center;
-    background-color: #A5C9CA;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    border-radius: 24px;
+    gap: 1.2rem;
+    padding: 2.1rem;
+    width: 85%;
+    margin: 0 auto;
 }
 
-#bakiye-form>div {
-    width: 50%;
-}
-
-.part-1>input {
-    width: 45%;
-}
-
-.part-1,
-.part-6 {
+.flexbox{
     display: flex;
-    justify-content: space-between;
-}
-
-.part-2>input,
-.part-3>input,
-.part-4>input,
-.part-5>input {
-    width: 100%;
-}
-
-#bakiye-form > div > input {
-    border-radius: 8px;
-    height: 32px;
-    padding-left: 4px;
-    border: 1px solid black;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 1px 3px;
-}
-
-#bakiye-form > div > input[type="submit"] {
-    padding-left: 16px;
-    padding-right: 16px;
-}
-
-@media only screen and (max-width: 1180px) {
-
-    .part-1,
-    .part-6 {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .part-1 > input,
-    .part-6 > input{
-        width: 100%;
-        margin-top: 5px;
-        margin-bottom: 5px;
-    }
-}
-
-@media only screen and (max-width: 1180px) {
-    #bakiye-form {
-        width: 90%;
-        height: 60vh;
-    }
+    flex-direction: row;
+    gap: 0.4rem;
 }
 </style>
