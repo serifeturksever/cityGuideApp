@@ -13,7 +13,9 @@
                 </router-link>
             </div>
             <div class="right">
-                <a @click="this.notImplementedYet">Buy transport card</a>
+                <router-link to="/public-transport-card">
+                    <a>Public transport Card</a>
+                </router-link>
             </div>
         </div>
 
@@ -40,20 +42,23 @@
 </template>
 
 <script>
+import { notImplementedYet } from './../services/helpers'
+
 export default {
   name: 'Navbar',
   methods: {
-    notImplementedYet: function () {
-      alert('This feature is not implemented yet!')
+        notImplementedYet,
+        toggleHamburger: function() 
+        {
+            let hamburgerLinks = document.querySelector(".hamburger-links")
+            if (hamburgerLinks.style.display === "none") {
+                hamburgerLinks.style.display = "flex";
+                
+            } else {
+                hamburgerLinks.style.display = "none";
+            }
+        }
     },
-    toggleHamburger: function () {
-      let hamburgerLinks = document.querySelector('.hamburger-links')
-      if (hamburgerLinks.style.display === 'none') {
-        hamburgerLinks.style.display = 'flex'
-      } else {
-        hamburgerLinks.style.display = 'none'
-      }
-    }
   }
 }
 </script>

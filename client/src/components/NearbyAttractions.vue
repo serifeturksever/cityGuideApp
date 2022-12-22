@@ -71,17 +71,21 @@
                 border: 1px solid transparent;
                 border-radius: 4px;
                 box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-                display:none"
-      >
-        <div class="close-places-list-container" v-for="place in places" :key="place.id">
-          <div class="list-el">
-            <div class="left">
-              <h4>{{ place.name}}</h4>
-              <pre> </pre>
-              <div style="font-size:16px">{{ place.vicinity }}</div>
-            </div>
-            <div class="star">
-              star: {{ place.rating ? place.rating : "no info" }}
+                display:none">
+                <div
+                v-for="place in places" 
+                :key="place.id"
+                @click="showOnMap()"
+                >
+                    <div class="list-el">
+                        <div class="left">
+                            <h4 style="margin-left:8px;width:50%">{{ place.name }}</h4>
+                            <div style="font-size:16px;margin-left:8px;width:50%;">{{ place.vicinity }}</div>
+                        </div>
+                        <div class="star" v-html="getStars(place.rating)"></div>
+                    </div>
+                    <hr>
+                </div>
             </div>
           </div>
           <hr />
@@ -104,53 +108,125 @@
 <script>
 import axios from 'axios'
 export default {
-  data () {
-    return {
-      lat: 38.4237, // 0,
-      lng: 27.1428, // 0,
-      type: '',
-      radius: '',
-      places: [],
-      attractions: [
-        { value: 'all', name: 'See All Attractions' },
-        { value: 'restaurant', name: 'Restaurant' },
-        { value: 'travel_agency', name: 'Travel Agency' },
-        { value: 'hospital', name: 'Hospital' },
-        { value: 'hair_care', name: 'Hair Care' },
-        { value: 'stadium', name: 'Stadium' },
-        { value: 'police', name: 'Police' },
-        { value: 'pharmacy', name: 'Pharmacy' },
-        { value: 'night_club', name: 'Night Club' },
-        { value: 'museum', name: 'Museum' },
-        { value: 'mosque', name: 'Mosque' },
-        { value: 'amusement_park', name: 'Amusement Park' },
-        { value: 'art_gallery', name: 'Art Gallery' }
-      ],
-      distances: [
-        { value: 1 },
-        { value: 5 },
-        { value: 10 },
-        { value: 15 },
-        { value: 20 },
-        { value: 25 },
-        { value: 50 }
-      ]
-    }
-  },
-  computed: {
-    coordinates () {
-      return `${this.lat}, ${this.lng}`
-    }
-  },
-  methods: {
-    locatorButtonPressed () {
-      navigator.geolocation.getCurrentPosition(
-        position => {
-          this.lat = position.coords.latitude
-          this.lng = position.coords.longitude
+    data() {
+        return {
+            lat: 38.4237,// 0,
+            lng: 27.1428,// 0,
+            type: "",
+            radius: "",
+            places: [],
+            attractions: [
+                {value: "all",name: "See All Attractions"},
+                {value: "restaurant",name: "Restaurant"},
+                {value: "travel_agency",name: "Travel Agency"},
+                {value: "hospital",name: "Hospital"},
+                {value: "hair_care",name: "Hair Care"},
+                {value: "stadium",name: "Stadium"},
+                {value: "police",name: "Police"},
+                {value: "pharmacy",name: "Pharmacy"},
+                {value: "night_club",name: "Night Club"},
+                {value: "museum",name: "Museum"},
+                {value: "mosque",name: "Mosque"},
+                {value: "amusement_park",name: "Amusement Park"},
+                {value: "art_gallery",name: "Art Gallery"}
+            ],
+            distances: [
+                {value: 1},
+                {value: 5},
+                {value: 10},
+                {value: 15},
+                {value: 20},
+                {value: 25},
+                {value: 50}
+            ]
+        };
+    },
+    computed: {
+        coordinates() {
+            return `${this.lat}, ${this.lng}`;
+        }
+    },
+    methods: {
+        locatorButtonPressed() {
+            navigator.geolocation.getCurrentPosition(
+                position => {
+                    this.lat = position.coords.latitude;
+                    this.lng = position.coords.longitude;
+                },
+                error => {
+                    console.log("Error getting location");
+                }
+            );
         },
-        error => {
-          console.log('Error getting location')
+        findCloseBuyButtonPressed() {
+            let type_str = this.type == 'all' ? '' : `&type=${this.type}`
+            const URL = `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${this.lat
+                },${this.lng}${type_str}&radius=${this.radius *
+                1000}&key=AIzaSyAN4mAPIR6NfoaZsKvVz4FF0x8X01acxaw`;
+            axios.get(URL).then(response => {
+                this.places = response.data.results;
+                this.addLocationsToGoogleMaps();
+                document.querySelector("#close-places-list").style.display = "block";
+                document.querySelector("#map-preinformation").style.display = "none";
+                document.querySelector("#map").style.display = "block";
+            }).catch(error => {
+                console.log(error.message);
+            });
+        },
+        addLocationsToGoogleMaps() {
+
+            var infowindow = new google.maps.InfoWindow();
+            var map = new google.maps.Map(this.$refs['map'], {
+                zoom: 15,
+                center: new google.maps.LatLng(this.lat, this.lng),
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+            this.places.forEach((place) => {
+                const lat = place.geometry.location.lat;
+                const lng = place.geometry.location.lng;
+                let marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(lat, lng),
+                    map: map
+                });
+
+                google.maps.event.addListener(marker, "click", () => {
+                    infowindow.setContent(`
+                    <div class="ui header">${place.name}</div>
+                    <p>${place.vicinity}</p>
+                    <p><i class="fa fa-star fa-lg" aria-hidden="true" style="color: gold;"></i>&nbsp; ${place.rating}</p>`
+                    );
+                    infowindow.open(map, marker);
+                });
+            });
+
+
+        },
+        getStars: function(rating){
+
+            if(!rating){
+                return "No info :("
+            } else {
+                // Round to nearest half
+                rating = Math.round(rating * 2) / 2;
+                let output = [];
+
+                // Append all the filled whole stars
+                for (var i = rating; i >= 1; i--)
+                    output.push('<i class="fa fa-star fa-lg" aria-hidden="true" style="color: gold;"></i>&nbsp;');
+
+                // If there is a half a star, append it
+                if (i == .5) output.push('<i class="fa fa-star-half-o fa-lg" aria-hidden="true" style="color: gold;"></i>&nbsp;');
+
+                // Fill the empty stars
+                for (let i = (5 - rating); i >= 1; i--)
+                    output.push('<i class="fa fa-star-o fa-lg" aria-hidden="true" style="color: gold;"></i>&nbsp;');
+
+                return output.join('');
+            }
+            
+        },
+        showOnMap: function(){
+            console.log("clicked");
         }
       )
     },
@@ -369,14 +445,21 @@ input {
 }
 
 .left {
-  width: 75%;
-  text-align: left;
-  margin-left: 16px;
+    width: 75%;
+    text-align: left;
+    margin-left: 16px;
+    margin-right: 16px;
 }
 
 .star {
-  width: 25%;
-  text-align: end;
-  margin-right: 32px;
+    width: 25%;
+    text-align: end;
+    margin-right: 24px
+}
+
+.list-el > * {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 </style>
