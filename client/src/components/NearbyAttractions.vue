@@ -1,5 +1,4 @@
 <template>
-  <div>
     <div id="container">
     <div id="filter-result">
       <div id="filter-attraction">
@@ -89,9 +88,7 @@
                 </div>
       </div>
           </div>
-          <hr />
-        </div>
-    <div id="map" ref="map" style="display:none"></div>
+          <div id="map" ref="map" style="display:none"></div>
     <div
       id="map-preinformation"
       style="display:flex;align-items:center;justify-content:center;font-size:24px"
@@ -100,7 +97,7 @@
         >Please locate yourself, choose attraction type and radius 🥳🎉</span
       >
     </div>
-  </div>
+    </div>
 </template>
 
 <script>
@@ -266,14 +263,21 @@ export default {
 </script>
 <style>
 #container {
-  display: flex;
-  width: 100%;
-  justify-content: space-evenly;
-  height: 50vh;
+  /* display: flex;
+  justify-content: space-around;
+  align-items: center; */
+
+  display: grid;
+  grid-template-rows: auto;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 5rem;
+  place-items: center;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #filter-result {
-  width: 30%;
   min-width: 300px;
   height: 700px;
   min-height: 600px;
@@ -286,7 +290,6 @@ export default {
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: 100%;
   min-height: 400px;
   max-height: 400px;
   background-color: #f5f0f0f1;
@@ -325,12 +328,12 @@ form > div:nth-child(1) {
 @media only screen and (max-width: 1180px) {
   /* 980px idi */
   #container {
-    width: 100%;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    overflow: hidden;
-    height: 200vh;
+  display: grid;
+  grid-template-columns: 1fr;
+  place-items: center;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
   }
 
   #filter-result,
