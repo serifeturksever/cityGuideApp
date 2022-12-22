@@ -40,13 +40,14 @@
                 box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
                 display:none">
                 <div
+                class="place-list-row"
                 v-for="place in places" 
                 :key="place.id"
-                @click="showOnMap()"
+                @click="showPlaceOnMap(place)"
                 >
                     <div class="list-el">
                         <div class="left">
-                            <h4 style="margin-left:8px;width:50%">{{ place.name }}</h4>
+                            <div style="margin-left:8px;width:50%;font-size:16px;font-weight:bold;">{{ place.name }}</div>
                             <div style="font-size:16px;margin-left:8px;width:50%;">{{ place.vicinity }}</div>
                         </div>
                         <div class="star" v-html="getStars(place.rating)"></div>
@@ -144,11 +145,8 @@ export default {
                     infowindow.open(map, marker);
                 });
             });
-
-
         },
         getStars: function(rating){
-
             if(!rating){
                 return "No info :("
             } else {
@@ -171,14 +169,43 @@ export default {
             }
             
         },
-        showOnMap: function(){
-            console.log("clicked");
+        showPlaceOnMap: function(place){
+            let lat = place.geometry.location.lat;
+            let lng = place.geometry.location.lng;
+
+                var infowindow = new google.maps.InfoWindow();
+                var map = new google.maps.Map(this.$refs['map'], {
+                    zoom: 15,
+                    center: new google.maps.LatLng(this.lat, this.lng),
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                });
+
+            let marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(lat, lng),
+                    map: map
+                });
+
+                let rateContent = place.rating ? `<p><i class="fa fa-star fa-lg" aria-hidden="true" style="color: gold;"></i>&nbsp; ${place.rating}</p>` : ``
+
+                infowindow.setContent(`
+                <div class="ui header">${place.name}</div>
+                <p>${place.vicinity}</p>
+                ${ rateContent }
+                `
+                );
+                infowindow.open(map, marker);
+
+                const locationButton = document.createElement("button");
+                locationButton.textContent = "See All Places";
+                locationButton.classList.add("see-all-button");
+                map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
+                locationButton.addEventListener("click",this.findCloseBuyButtonPressed)
+
         }
     }
 }
 </script>
 <style>
-
 * {
     font-family: sans-serif;
 }
@@ -407,6 +434,20 @@ input {
     justify-content: space-between;
     margin-left: 4px;
     margin-right: 4px;
+    padding-top: 12px;
+    padding-bottom:12px;
+    cursor: pointer;
+}
+
+.list-el:hover{
+    color: white;
+    background: #B2B2B2;
+}
+
+.list-el > * {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .left {
@@ -422,9 +463,16 @@ input {
     margin-right: 24px
 }
 
-.list-el > * {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+hr {
+    margin: 0;
+    padding: 0;
+}
+
+.see-all-button{
+    color: white;
+    width: 128px;
+    height: 64px;
+    background: #ff003b;
+    border-radius: 24px;
 }
 </style>
