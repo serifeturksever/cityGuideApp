@@ -1,32 +1,46 @@
 <template lang="html">
-    <div id="welcome-container">
-        <div id="map" ref="map"></div>
-        <div id="map-load">
-            <p>Map düzgün yüklenemedi 😓</p>
-            <button @click="this.showMap">yeniden dene!</button>
-        </div>
-        <h1>Welcome to City Guide App</h1>
-        <h2>See what happens in your city!</h2>
-        <br>
-        <div id="all-cards">
-            <a @click="this.notImplementedYet">
-                <Card title="News,Events & Tips" />
-            </a>
-            <router-link id="active-route" to="/nearby-attractions">
-                <Card title="Nearby Attractions" />
-            </router-link>
-            <a @click="this.notImplementedYet">
-                <Card title="Attractions" />
-            </a>
-            <a @click="this.notImplementedYet">
-                <Card title="Weather" />
-            </a>
-            <a @click="this.notImplementedYet">
-                <Card title="Where to Eat & Stay" />
-            </a>
-        </div>
-
+  <div id="welcome-container">
+    <h1>Welcome to City Guide App</h1>
+    <h2>See what happens in your city!</h2>
+    <div id="map" ref="map"></div>
+    <div id="map-load">
+      <p>Map düzgün yüklenemedi 😓</p>
+      <button @click="this.showMap">yeniden dene!</button>
     </div>
+
+    <div id="all-cards">
+      <a @click="this.notImplementedYet">
+        <Card
+          title="News & Events & Tips"
+          v-bind:imgSrc="require('../assets/event.png')"
+        />
+      </a>
+      <router-link id="active-route" to="/nearby-attractions">
+        <Card
+          title="Nearby Attractions"
+          v-bind:imgSrc="require('../assets/attractions.png')"
+        />
+      </router-link>
+      <a @click="this.notImplementedYet">
+        <Card
+          title="Attractions"
+          v-bind:imgSrc="require('../assets/attr.png')"
+        />
+      </a>
+      <a @click="this.notImplementedYet">
+        <Card
+          title="Weather"
+          v-bind:imgSrc="require('../assets/weather.png')"
+        />
+      </a>
+      <a @click="this.notImplementedYet">
+        <Card
+          title="Where to Eat & Stay"
+          v-bind:imgSrc="require('../assets/food.png')"
+        />
+      </a>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -131,78 +145,88 @@ export default {
             this.loadMap();
         }
     },
-}
+  }
+};
 </script>
 <style>
 #welcome-container {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    min-width: 800px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  min-width: 800px;
 }
 
 #all-cards {
-    width: 80%;
-    display: grid;
-    grid-template-columns: auto auto;
-    gap: 20px;
-    margin-bottom: 5vh;
+  margin: 5rem auto;
+  width: 75%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2,1fr);
+  gap: 3rem;
 }
 
 #map,
 #map-load {
-    width: 90%;
-    height: 400px;
-    border: 1px solid transparent;
-    border-radius: 24px;
-    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-    padding: 8px;
+  width: 70%;
+  height: 400px;
+  border: 1px solid transparent;
+  border-radius: 24px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 2px 0px;
+  padding: 1rem;
 }
 
 #map {
-    display: block;
+  display: block;
 }
 
 #map-load {
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+
 }
 
 @media only screen and (max-width: 800px) {
-    #all-cards {
-        width: 90%;
-        display: grid;
-        grid-template-columns: 100%;
-    }
+  h1{
+  font-size: 3rem;
 
-    #welcome-container {
-        min-width: 300px;
-    }
+  }
+  #all-cards {
+    width: 90%;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2,1fr);
+  }
+}
 
-    #map,
-    #map-load {
-        width: 80%;
-        min-width: 300px;
-        height: 250px;
-    }
+#welcome-container {
+  min-width: 300px;
+}
+
+#map,
+#map-load {
+  width: 70%;
+  min-width: 300px;
+  height: 250px;
+  margin: 1rem auto;
 }
 
 h1 {
-    font-size: 72px;
-    background: -webkit-linear-gradient(rgb(7, 30, 233), rgb(14, 217, 119));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+  font-size: 4.3rem;
+  background: -webkit-linear-gradient(rgb(9, 9, 9), rgba(21, 33, 27, 0.648));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 #all-cards *:hover {
-    color: cadetblue;
-    cursor: pointer;
+  color: rgb(27, 29, 29);
+  cursor: pointer;
 }
 
 #all-cards * {
-    color: black;
-    text-decoration: none;
+  color: rgba(0, 0, 0, 0.768);
+  text-decoration: none;
 }
 </style>

@@ -45,9 +45,11 @@
 import { notImplementedYet } from './../services/helpers'
 
 export default {
-    methods: {
+  name: 'Navbar',
+  methods: {
         notImplementedYet,
-        toggleHamburger: function() {
+        toggleHamburger: function() 
+        {
             let hamburgerLinks = document.querySelector(".hamburger-links")
             if (hamburgerLinks.style.display === "none") {
                 hamburgerLinks.style.display = "flex";
@@ -57,6 +59,7 @@ export default {
             }
         }
     },
+  }
 }
 </script>
 
@@ -174,7 +177,7 @@ a:active {
     background: none;
     border: none;
     padding: 8px;
-    
+
 }
 
 #hamburger-icon {

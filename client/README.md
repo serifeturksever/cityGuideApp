@@ -2,6 +2,9 @@
 
 > mevn city guide app
 
+## Important
+### If doesn't happening anything in the "Nearby Attractions" page when clicked "Find Nearby Attractions" button, it may be the don't have any permission on API. Before running the prototype, go "https://cors-anywhere.herokuapp.com/corsdemo" page and get temporary access permission. 
+
 ## Build Setup
 
 ``` bash
