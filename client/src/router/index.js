@@ -22,10 +22,6 @@ export default new Router({
       component: Todo
     },
     {
-      path: '/welcome',
-      component: Welcome
-    },
-    {
       path: '/card',
       component: Card
     },
