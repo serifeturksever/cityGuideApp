@@ -41,12 +41,8 @@
              ],
              maxPlaceCount: 24,
            });
-           console.log("info.window",infoWindow)
-           console.log("map",map)
            infoWindow.setPosition(pos);
            map = localContextMapView.map;
-           console.log("info.window",infoWindow)
-           console.log("map",map)
            infoWindow.setContent("Location found.");
            infoWindow.open(map);
            map.setOptions({

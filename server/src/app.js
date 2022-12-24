@@ -36,7 +36,6 @@ app.get('/todo', (req, res) => {
     })
 })
 app.post('/addTodo', (req, res) => {
-    console.log("adddddd")
     const col = client.db('deneme').collection('todos')
     var todo = req.body.todo;
     col.insertOne({ title: todo }, function (err, results) {

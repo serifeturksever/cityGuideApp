@@ -66,6 +66,7 @@
 
 <script>
 import axios from "axios";
+import { exported_places } from "../services/places"
 export default {
     data() {
         return {
@@ -75,7 +76,6 @@ export default {
             radius: "",
             places: [],
             attractions: [
-                {value: "all",name: "All"},
                 {value: "museum",name: "Museum"},
                 {value: "mosque",name: "Mosque"},
                 {value: "art_gallery",name: "Art Gallery"},
@@ -121,14 +121,12 @@ export default {
             });
         },
         addLocationsToGoogleMaps() {
-
             var infowindow = new google.maps.InfoWindow();
             var map = new google.maps.Map(this.$refs['map'], {
                 zoom: 15,
                 center: new google.maps.LatLng(this.lat, this.lng),
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             });
-            console.log(this.places);
             this.places.forEach((place) => {
                 const lat = place.geometry.location.lat;
                 const lng = place.geometry.location.lng;
@@ -174,6 +172,12 @@ export default {
             let lat = place.geometry.location.lat;
             let lng = place.geometry.location.lng;
 
+            let place_id = place.place_id;
+            let detailed_place = exported_places.filter(key => key.id === place_id).length > 0 ? exported_places.filter(key => key.id === place_id)[0] : "";
+            let place_description = detailed_place != "" ? detailed_place.description : "";
+            let place_establishment_date = detailed_place != "" ? `Kuruluş Tarihi: ${detailed_place.establishment_date}` : ""
+            place_establishment_date = place_establishment_date == -1 ? "Bilgi Yok" : place_establishment_date;
+
                 var infowindow = new google.maps.InfoWindow();
                 var map = new google.maps.Map(this.$refs['map'], {
                     zoom: 15,
@@ -187,9 +191,10 @@ export default {
                 });
 
                 let rateContent = place.rating ? `<p><i class="fa fa-star fa-lg" aria-hidden="true" style="color: gold;"></i>&nbsp; ${place.rating}</p>` : ``
-
                 infowindow.setContent(`
                 <div class="ui header">${place.name}</div>
+                <p style="font-size:16px">${place_description}</p>
+                <p style="color:grey">${place_establishment_date}</p>
                 <p>${place.vicinity}</p>
                 ${ rateContent }
                 `
