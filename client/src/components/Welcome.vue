@@ -28,8 +28,8 @@
     </div>
     <div id="map" ref="map"></div>
     <div id="map-load">
-      <p>Map düzgün yüklenemedi 😓</p>
-      <button @click="this.showMap">yeniden dene!</button>
+      <p><b>Map düzgün yüklenemedi</b></p>
+      <button style="border: 1px solid transparent;padding:8px;border-radius:8px;background:#6B7AA1;cursor:pointer;color:white;box-shadow: rgba(0, 0, 0, 0.1) 0px 3px 10px 8px;" @click="this.showMap">Lütfen yeniden deneyiniz</button>
     </div>
 
     <div id="all-cards">

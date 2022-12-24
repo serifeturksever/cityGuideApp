@@ -173,7 +173,7 @@ a:active {
     position: absolute;
     width: fit-content;
     height: fit-content;
-    background-color: grey;
+    background-color: #6B7AA1;
     opacity: 0.95;
     z-index: 99999;
     padding: 16px;
@@ -181,11 +181,13 @@ a:active {
     border-radius: 16px;
     font-size: 20px;
     font-family: sans-serif;
+    font-weight: bold;
     text-align: left;
+    cursor: pointer;
 }
 
 .hamburger-links *:hover {
-    color: #f27894;
+    color: #E7E0C9;
 }
 
 .hamburger-btn {
