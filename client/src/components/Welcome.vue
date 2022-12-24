@@ -3,6 +3,12 @@
     <Modal/>
     <h1>Welcome to City Guide App</h1>
     <h2>Discover your city before it's too late!</h2>
+    <div id="map" ref="map"></div>
+    <div id="map-load">
+      <p><b>Map düzgün yüklenemedi</b></p>
+      <button style="border: 1px solid transparent;padding:8px;border-radius:8px;background:#6B7AA1;cursor:pointer;color:white;box-shadow: rgba(0, 0, 0, 0.1) 0px 3px 10px 8px;" @click="this.showMap">Lütfen yeniden deneyiniz</button>
+    </div>
+    <br>
     <div class="ui container social">
       <SocialFeed
         author="John Doe"
@@ -26,12 +32,6 @@
       summary="going to join 'Yoga Session with Abele'"
       />
     </div>
-    <div id="map" ref="map"></div>
-    <div id="map-load">
-      <p><b>Map düzgün yüklenemedi</b></p>
-      <button style="border: 1px solid transparent;padding:8px;border-radius:8px;background:#6B7AA1;cursor:pointer;color:white;box-shadow: rgba(0, 0, 0, 0.1) 0px 3px 10px 8px;" @click="this.showMap">Lütfen yeniden deneyiniz</button>
-    </div>
-
     <div id="all-cards">
       <a class="notImplemented">
         <Card
@@ -193,7 +193,8 @@ export default {
 
 #all-cards {
   margin: 5rem auto;
-  width: 75%;
+  width: 70%;
+  min-width: 300px;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(2, 1fr);
@@ -261,5 +262,12 @@ h1 {
 #all-cards * {
   color: rgba(0, 0, 0, 0.768);
   text-decoration: none;
+}
+
+.ui.container.social {
+  width: 70% !important;
+  border: 1px solid transparent;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 4px 12px;
+  border-radius: 24px;
 }
 </style>
