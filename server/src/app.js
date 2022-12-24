@@ -22,43 +22,5 @@ mongoClient.connect((err, db) => { // returns db connection
 app.use(morgan('dev'))
 app.use(bodyParser.json())
 app.use(cors())
-
-app.get('/todo', (req, res) => {
-    const cols = client.db("deneme").collection("todos")
-    cols.find().toArray(function (err, results) {
-        if (err) {
-            console.log(err)
-            res.send([])
-            return
-        }
-
-        res.send(results)
-    })
-})
-app.post('/addTodo', (req, res) => {
-    const col = client.db('deneme').collection('todos')
-    var todo = req.body.todo;
-    col.insertOne({ title: todo }, function (err, results) {
-        if (err) {
-            console.log(err);
-            res.send('');
-            return
-        }
-        // console.log(results.insertedId)
-        res.send(results);
-    })
-})
-app.post('/deleteTodo', (req, res) => {
-    const collection = client.db('deneme').collection('todos')
-    collection.deleteOne({'_id': mongo.ObjectID(req.body.todoID)},
-      function (err, results) {
-        if (err) {
-          console.log(err)
-          res.send('')
-          return 
-        } 
-        res.send() 
-     }) 
-  })
 // client 8080 server 8081'de çalışacak
 app.listen(process.env.PORT || 8081)

@@ -71,7 +71,7 @@ export default {
     position: fixed;
     width: 100%;
     height: 64px;
-    background-color: black;
+    background-color: #0A2647;
     margin-top: 0px;
     align-items: center;
     padding-left: 16px;

@@ -22,7 +22,7 @@
                                 <div class="radius">
                                     <select v-model="radius">
                                         <option disabled value="">Radius</option>
-                                        <option v-for="distance in distances" :value="distance.value">{{distance.value}}</option>
+                                        <option v-for="distance in distances" :value="distance.value">{{distance.value}} km</option>
                                     </select>
                                 </div>
                             </div>
@@ -106,9 +106,11 @@ export default {
             );
         },
         findCloseBuyButtonPressed() {
-            let type_str = this.type == 'all' ? '' : `&type=${this.type}`
+            if(!this.type){alert("Please Choose an Attraction Type");return;}
+            if(!this.radius){alert("Please Choose a Radius");return;}
+            // let type_str = this.type == 'all' ? '' : `&type=${this.type}`
             const URL = `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${this.lat
-                },${this.lng}${type_str}&radius=${this.radius *
+                },${this.lng}&type=${this.type}&radius=${this.radius *
                 1000}&key=AIzaSyAN4mAPIR6NfoaZsKvVz4FF0x8X01acxaw`;
             axios.get(URL).then(response => {
                 this.places = response.data.results;
@@ -224,7 +226,7 @@ export default {
 
 #filter-result {
     width: 30%;
-    min-width: 300px;
+    min-width: 400px;
     height: 700px;
     min-height: 600px;
     display: flex;

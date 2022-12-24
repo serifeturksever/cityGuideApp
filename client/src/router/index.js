@@ -1,7 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
-import Todo from '@/components/Todo'
 import Welcome from '@/components/Welcome'
 import Card from '@/components/Card'
 import NearbyAttractions from '@/components/NearbyAttractions'
@@ -16,10 +14,6 @@ export default new Router({
       path: '/',
       name: 'Welcome',
       component: Welcome
-    },
-    {
-      path: '/todos',
-      component: Todo
     },
     {
       path: '/card',
