@@ -34,7 +34,9 @@
                     <router-link to="/nearby-attractions">
                         <a>Nearby Attractions</a>
                     </router-link>
-                    <a @click="this.notImplementedYet">Buy transport card</a>
+                    <router-link to="/public-transport-card">
+                        <a>Public transport Card</a>
+                    </router-link>
                 </div>
             </div>
         </div>
@@ -42,11 +44,9 @@
 </template>
 
 <script>
-import { notImplementedYet } from './../services/helpers'
 
 export default {
     methods: {
-        notImplementedYet,
         toggleHamburger: function() {
             let hamburgerLinks = document.querySelector(".hamburger-links")
             if (hamburgerLinks.style.display === "none") {

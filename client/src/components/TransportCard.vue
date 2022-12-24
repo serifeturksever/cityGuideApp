@@ -1,7 +1,8 @@
 <template>
     <div class="transport-card-container">
+        <Modal/>
         <h2><strong>Kartına bakiye yüklemek artık çok kolay.</strong></h2>
-        <form id="bakiye-form">
+        <div id="bakiye-form">
             <div class="part-1">
                 <input type="text" name="name" placeholder="Name" />
                 <input type="text" name="surname" placeholder="Surname" />
@@ -24,26 +25,17 @@
                 <input type="number" name="cvv" placeholder="cvv" />
             </div>
 
-            <input type="submit" value="yükle" @click="this.notImplementedYet" />
-        </form>
+            <input class="notImplemented" type="submit" value="yükle"/>
+        </div>
         <h2><strong>Merhaba UserG8 ✋. Mevcut bakiyen <i>12.48₺</i></strong></h2>
     </div>
 </template>
 
-<!-- 
-name    surname
-phone number
-city name
-amount of money
-card number
-expired date    cvv
- -->
-
 <script>
-import { notImplementedYet } from './../services/helpers'
+import Modal from './Modal'
 export default {
-    methods: {
-        notImplementedYet
+    components: {
+        Modal
     }
 }
 </script>
