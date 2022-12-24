@@ -3,7 +3,7 @@
         <div id="navbar">
             <div class="left">
                 <router-link to="/">
-                    <a style="color:black">G8</a>
+                    <a>G8</a>
                 </router-link>
                 <router-link to="/">
                     <a>Home</a>
@@ -71,7 +71,7 @@ export default {
     position: fixed;
     width: 100%;
     height: 64px;
-    background-color: black;
+    background-color: #11324D;
     margin-top: 0px;
     align-items: center;
     padding-left: 16px;
@@ -98,11 +98,21 @@ export default {
     font-family: sans-serif;
 }
 
+.left > a > a:hover,
+.right > a > a:hover{
+    color: #E7E0C9
+}
+
 .left {
     width: 70%;
     display: flex;
     justify-content: flex-start;
     padding-left: 32px;
+}
+
+.left a,
+.right a {
+    font-family: sans-serif;
 }
 
 .logo {
@@ -121,10 +131,18 @@ export default {
     width: fit-content;
     height: fit-content;
     margin-left: 10px;
-    border: 1px solid white;
+    border: 1px solid transparent;
     background-color: white;
     border-radius: 100%;
 }
+.left > a:nth-child(1) > a{
+    color: black;
+}
+
+.left > a:nth-child(1):hover{
+    background-color: #E7E0C9;
+}
+
 
 .left>a:nth-child(2) {
     margin-left: 10px;

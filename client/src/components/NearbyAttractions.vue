@@ -42,7 +42,7 @@
                     <option
                       v-for="distance in distances"
                       :value="distance.value"
-                      >{{ distance.value }}</option
+                      >{{ distance.value }} km</option
                     >
                   </select>
                 </div>
@@ -73,9 +73,10 @@
                 box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
                 display:none">
                 <div
+                class="place-list-row"
                 v-for="place in places"
                 :key="place.id"
-                @click="showOnMap()"
+                @click="showPlaceOnMap(place)"
                 >
                     <div class="list-el">
                         <div class="left">
@@ -99,341 +100,398 @@
     </div>
     </div>
 </template>
-
 <script>
-import axios from 'axios'
+import axios from "axios";
+import { exported_places } from "../services/places"
 export default {
-  data () {
-    return {
-      lat: 38.4237, // 0,
-      lng: 27.1428, // 0,
-      type: '',
-      radius: '',
-      places: [],
-      attractions: [
-        {value: 'all', name: 'See All Attractions'},
-        {value: 'restaurant', name: 'Restaurant'},
-        {value: 'travel_agency', name: 'Travel Agency'},
-        {value: 'hospital', name: 'Hospital'},
-        {value: 'hair_care', name: 'Hair Care'},
-        {value: 'stadium', name: 'Stadium'},
-        {value: 'police', name: 'Police'},
-        {value: 'pharmacy', name: 'Pharmacy'},
-        {value: 'night_club', name: 'Night Club'},
-        {value: 'museum', name: 'Museum'},
-        {value: 'mosque', name: 'Mosque'},
-        {value: 'amusement_park', name: 'Amusement Park'},
-        {value: 'art_gallery', name: 'Art Gallery'}
-      ],
-      distances: [
-        {value: 1},
-        {value: 5},
-        {value: 10},
-        {value: 15},
-        {value: 20},
-        {value: 25},
-        {value: 50}
-      ]
-    }
-  },
-  computed: {
-    coordinates () {
-      return `${this.lat}, ${this.lng}`
-    }
-  },
-  methods: {
-    locatorButtonPressed () {
-      navigator.geolocation.getCurrentPosition(
-        position => {
-          this.lat = position.coords.latitude
-          this.lng = position.coords.longitude
-        },
-        error => {
-          console.log('Error getting location')
+    data() {
+        return {
+            lat: 38.4237,// 0,
+            lng: 27.1428,// 0,
+            type: "",
+            radius: "",
+            places: [],
+            attractions: [
+                {value: "museum",name: "Museum"},
+                {value: "mosque",name: "Mosque"},
+                {value: "art_gallery",name: "Art Gallery"},
+                {value: "tourist_attraction",name: "Touristic Attraction"} /* Historical Places */
+            ],
+            distances: [
+                {value: 10},
+                {value: 20},
+                {value: 50}
+            ]
+        };
+    },
+    computed: {
+        coordinates() {
+            return `${this.lat}, ${this.lng}`;
         }
-      )
     },
-    findCloseBuyButtonPressed () {
-      let type_str = this.type == 'all' ? '' : `&type=${this.type}`
-      const URL = `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${this.lat
-      },${this.lng}${type_str}&radius=${this.radius *
-                1000}&key=AIzaSyAN4mAPIR6NfoaZsKvVz4FF0x8X01acxaw`
-      axios.get(URL).then(response => {
-        this.places = response.data.results
-        this.addLocationsToGoogleMaps()
-        document.querySelector('#close-places-list').style.display = 'block'
-        document.querySelector('#map-preinformation').style.display = 'none'
-        document.querySelector('#map').style.display = 'block'
-      }).catch(error => {
-        console.log(error.message)
-      })
-    },
-    addLocationsToGoogleMaps () {
-      var infowindow = new google.maps.InfoWindow()
-      var map = new google.maps.Map(this.$refs['map'], {
-        zoom: 15,
-        center: new google.maps.LatLng(this.lat, this.lng),
-        mapTypeId: google.maps.MapTypeId.ROADMAP
-      })
-      this.places.forEach((place) => {
-        const lat = place.geometry.location.lat
-        const lng = place.geometry.location.lng
-        let marker = new google.maps.Marker({
-          position: new google.maps.LatLng(lat, lng),
-          map: map
-        })
+    methods: {
+        locatorButtonPressed() {
+            navigator.geolocation.getCurrentPosition(
+                position => {
+                    this.lat = position.coords.latitude;
+                    this.lng = position.coords.longitude;
+                },
+                error => {
+                    console.log("Error getting location");
+                }
+            );
+        },
+        findCloseBuyButtonPressed() {
+            if(!this.type){alert("Please Choose an Attraction Type");return;}
+            if(!this.radius){alert("Please Choose a Radius");return;}
+            // let type_str = this.type == 'all' ? '' : `&type=${this.type}`
+            const URL = `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${this.lat
+                },${this.lng}&type=${this.type}&radius=${this.radius *
+                1000}&key=AIzaSyAN4mAPIR6NfoaZsKvVz4FF0x8X01acxaw`;
+            axios.get(URL).then(response => {
+                this.places = response.data.results;
+                this.addLocationsToGoogleMaps();
+                document.querySelector("#close-places-list").style.display = "block";
+                document.querySelector("#map-preinformation").style.display = "none";
+                document.querySelector("#map").style.display = "block";
+            }).catch(error => {
+                console.log(error.message);
+            });
+        },
+        addLocationsToGoogleMaps() {
+            var infowindow = new google.maps.InfoWindow();
+            var map = new google.maps.Map(this.$refs['map'], {
+                zoom: 15,
+                center: new google.maps.LatLng(this.lat, this.lng),
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+            this.places.forEach((place) => {
+                const lat = place.geometry.location.lat;
+                const lng = place.geometry.location.lng;
+                let marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(lat, lng),
+                    map: map
+                });
 
-        google.maps.event.addListener(marker, 'click', () => {
-          infowindow.setContent(`
+                google.maps.event.addListener(marker, "click", () => {
+                    infowindow.setContent(`
                     <div class="ui header">${place.name}</div>
                     <p>${place.vicinity}</p>
                     <p><i class="fa fa-star fa-lg" aria-hidden="true" style="color: gold;"></i>&nbsp; ${place.rating}</p>`
-          )
-          infowindow.open(map, marker)
-        })
-      })
-    },
-    getStars: function (rating) {
-      if (!rating) {
-        return 'No info :('
-      } else {
-        // Round to nearest half
-        rating = Math.round(rating * 2) / 2
-        let output = []
+                    );
+                    infowindow.open(map, marker);
+                });
+            });
+        },
+        getStars: function(rating){
+            if(!rating){
+                return "No info :("
+            } else {
+                // Round to nearest half
+                rating = Math.round(rating * 2) / 2;
+                let output = [];
 
-        // Append all the filled whole stars
-        for (var i = rating; i >= 1; i--) { output.push('<i class="fa fa-star fa-lg" aria-hidden="true" style="color: gold;"></i>&nbsp;') }
+                // Append all the filled whole stars
+                for (var i = rating; i >= 1; i--)
+                    output.push('<i class="fa fa-star fa-lg" aria-hidden="true" style="color: gold;"></i>&nbsp;');
 
-        // If there is a half a star, append it
-        if (i == 0.5) output.push('<i class="fa fa-star-half-o fa-lg" aria-hidden="true" style="color: gold;"></i>&nbsp;')
+                // If there is a half a star, append it
+                if (i == .5) output.push('<i class="fa fa-star-half-o fa-lg" aria-hidden="true" style="color: gold;"></i>&nbsp;');
 
-        // Fill the empty stars
-        for (let i = (5 - rating); i >= 1; i--) { output.push('<i class="fa fa-star-o fa-lg" aria-hidden="true" style="color: gold;"></i>&nbsp;') }
+                // Fill the empty stars
+                for (let i = (5 - rating); i >= 1; i--)
+                    output.push('<i class="fa fa-star-o fa-lg" aria-hidden="true" style="color: gold;"></i>&nbsp;');
 
-        return output.join('')
-      }
-    },
-    showOnMap: function () {
-      console.log('clicked')
+                return output.join('');
+            }
+            
+        },
+        showPlaceOnMap: function(place){
+            let lat = place.geometry.location.lat;
+            let lng = place.geometry.location.lng;
+
+            let place_id = place.place_id;
+            let detailed_place = exported_places.filter(key => key.id === place_id).length > 0 ? exported_places.filter(key => key.id === place_id)[0] : "";
+            let place_description = detailed_place != "" ? detailed_place.description : "";
+            let place_establishment_date = detailed_place != "" ? `Kuruluş Tarihi: ${detailed_place.establishment_date}` : ""
+            place_establishment_date = place_establishment_date == -1 ? "Bilgi Yok" : place_establishment_date;
+
+                var infowindow = new google.maps.InfoWindow();
+                var map = new google.maps.Map(this.$refs['map'], {
+                    zoom: 15,
+                    center: new google.maps.LatLng(this.lat, this.lng),
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                });
+
+            let marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(lat, lng),
+                    map: map
+                });
+
+                let rateContent = place.rating ? `<p><i class="fa fa-star fa-lg" aria-hidden="true" style="color: gold;"></i>&nbsp; ${place.rating}</p>` : ``
+                infowindow.setContent(`
+                <div class="ui header">${place.name}</div>
+                <p style="font-size:16px">${place_description}</p>
+                <p style="color:grey">${place_establishment_date}</p>
+                <p>${place.vicinity}</p>
+                ${ rateContent }
+                `
+                );
+                infowindow.open(map, marker);
+
+                const locationButton = document.createElement("button");
+                locationButton.textContent = "See All Places";
+                locationButton.classList.add("see-all-button");
+                map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
+                locationButton.addEventListener("click",this.findCloseBuyButtonPressed)
+
+        }
     }
-  },
-  findCloseBuyButtonPressed () {
-    let type_str = this.type == 'all' ? '' : `&type=${this.type}`
-    const URL = `https://cors-anywhere.herokuapp.com/https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${
-      this.lat
-    },${this.lng}${type_str}&radius=${this.radius *
-        1000}&key=AIzaSyA6VsFQVixA00O1Qg4_wKy_WuaVa77zc5I`
-    axios
-      .get(URL)
-      .then(response => {
-        this.places = response.data.results
-        this.addLocationsToGoogleMaps()
-        document.querySelector('#close-places-list').style.display = 'block'
-        document.querySelector('#map-preinformation').style.display = 'none'
-        document.querySelector('#map').style.display = 'block'
-      })
-      .catch(error => {
-        console.log(error.message)
-      })
-  },
-  addLocationsToGoogleMaps () {
-    var infowindow = new google.maps.InfoWindow()
-    var map = new google.maps.Map(this.$refs['map'], {
-      zoom: 15,
-      center: new google.maps.LatLng(this.lat, this.lng),
-      mapTypeId: google.maps.MapTypeId.ROADMAP
-    })
-    this.places.forEach(place => {
-      const lat = place.geometry.location.lat
-      const lng = place.geometry.location.lng
-      let marker = new google.maps.Marker({
-        position: new google.maps.LatLng(lat, lng),
-        map: map
-      })
-
-      google.maps.event.addListener(marker, 'click', () => {
-        infowindow.setContent(
-          `<div class="ui header">${place.name}</div><p>${place.vicinity}</p>`
-        )
-        infowindow.open(map, marker)
-      })
-    })
-  }
 }
 </script>
 <style>
+* {
+    font-family: sans-serif;
+}
 #container {
-  /* display: flex;
-  justify-content: space-around;
-  align-items: center; */
-
-  display: grid;
-  grid-template-rows: auto;
-  grid-template-columns: 1fr 1fr;
-  column-gap: 5rem;
-  place-items: center;
-  width: 80%;
-  margin-left: auto;
-  margin-right: auto;
+    display: flex;
+    width: 100%;
+    justify-content: space-evenly;
+    height: 50vh;
 }
 
 #filter-result {
-  min-width: 300px;
-  height: 700px;
-  min-height: 600px;
-  display: flex;
-  flex-direction: column;
+    width: 30%;
+    min-width: 400px;
+    height: 700px;
+    min-height: 600px;
+    display: flex;
+    flex-direction: column;
 }
 
 #filter-attraction {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
-  min-height: 400px;
-  max-height: 400px;
-  background-color: #f5f0f0f1;
-  border: 1px solid transparent;
-  border-radius: 24px;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 2px 2px 2px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    min-height: 400px;
+    max-height: 400px;
+    background-color: #FEFBF6;
+    border: 1px solid transparent;
+    border-radius: 24px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 }
 
 #map,
 #map-preinformation {
-  border: 1px solid transparent;
-  border-radius: 24px;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  padding: 8px;
-  width: 60%;
-  min-width: 580px;
+    border: 1px solid transparent;
+    border-radius: 24px;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    padding: 8px;
+    width: 60%;
+    min-width: 580px;
 }
 
 #map {
-  height: 700px;
-  min-height: 400px;
+    height: 700px;
+    min-height: 400px;
 }
 
 form {
-  width: 80%;
-  height: 60%;
+    width: 80%;
+    height: 60%;
 }
 
-form > div:nth-child(1) {
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
+form>div:nth-child(1) {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
 @media only screen and (max-width: 1180px) {
-  /* 980px idi */
-  #container {
-  display: grid;
-  grid-template-columns: 1fr;
-  place-items: center;
-  width: 80%;
-  margin-left: auto;
-  margin-right: auto;
-  }
 
-  #filter-result,
-  #map,
-  #map-preinformation {
-    width: 90%;
-  }
+    /* 980px idi */
+    #container {
+        width: 100%;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: center;
+        overflow: hidden;
+        height: 200vh;
+    }
 
-  #filter-result {
-    margin-top: 64px;
-    height: 30%;
-  }
+    #filter-result,
+    #map,
+    #map-preinformation {
+        width: 90%;
+    }
 
-  #map-preinformation {
-    height: 400px;
-    margin-top: 64px;
-    margin-bottom: 32px;
-    min-width: 200px;
-  }
+    #filter-result {
+        margin-top: 64px;
+        height: 30%;
+    }
 
-  #map {
-    margin-top: 64px;
-    height: 800px;
-    min-width: 200px;
-    margin-bottom: 32px;
-  }
+    #map-preinformation {
+        height: 400px;
+        margin-top: 64px;
+        margin-bottom: 32px;
+        min-width: 200px;
+    }
 
-  .span-info {
-    width: 80%;
-  }
+    #map {
+        margin-top: 64px;
+        height: 800px;
+        min-width: 200px;
+        margin-bottom: 32px;
+    }
 
-  form {
-    width: 90%;
-    height: 90%;
-  }
+    .span-info {
+        width: 80%;
+    }
 
-  #filter-attraction {
-    display: flex;
-    height: 400px;
-    justify-content: center;
-    align-items: center;
-  }
+    form {
+        width: 90%;
+        height: 90%;
+    }
+
+    #filter-attraction {
+        display: flex;
+        height: 400px;
+        justify-content: center;
+        align-items: center;
+    }
 }
 
 .span-info {
-  border: 1px solid transparent;
-  border-radius: 24px;
-  background-color: #d9e0e1;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  padding: 1rem;
+    border: 1px solid transparent;
+    border-radius: 24px;
+    background-color: #D9ECF2;
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+    padding: 1rem
+}
+
+
+
+#lat-lng {
+    width: 100%;
+    height: 48px;
+    display: flex;
+    justify-content: space-between;
+}
+
+#lat-lng>input {
+    width: 60%;
+    border-radius: 8px;
+    text-align: center;
+}
+
+#lat-lng>a {
+    width: 35%;
+    border-radius: 8px;
+    min-width: 48px;
 }
 
 .sub-filter-container {
-  display: flex;
-  justify-content: space-between;
+    display: flex;
+    justify-content: space-between;
 }
 
 .attraction-type {
-  width: 60%;
-  height: 48px;
+    width: 60%;
+    height: 48px;
 }
 
-.attraction-type > select,
-.radius > select {
-  width: 100%;
-  height: 100%;
-  border-radius: 8px;
-  text-align: center;
+.attraction-type>select,
+.radius>select {
+    width: 100%;
+    height: 100%;
+    border-radius: 8px;
+    text-align: center;
 }
 
 .radius {
-  width: 36%;
-  height: 48px;
+    width: 36%;
+    height: 48px;
 }
 
 #find-nearby-attractions-btn {
-  height: 48px;
-  border-radius: 8px;
+    height: 48px;
+    border-radius: 8px;
+}
+
+button {
+    border: none;
+    cursor: pointer;
 }
 
 input {
-  border: 1px solid black;
+    border: 1px solid black;
+}
+
+#fancy-button {
+    display: block;
+    width: 100%;
+    height: 48px;
+    line-height: 40px;
+    font-size: 18px;
+    font-family: sans-serif;
+    text-decoration: none;
+    color: #333;
+    border: 2px solid #333;
+    letter-spacing: 2px;
+    text-align: center;
+    position: relative;
+    transition: all .35s;
+    border-radius: 8px;
+    background-color: white;
 }
 
 #btn-span {
-  position: relative;
-  z-index: 2;
+    position: relative;
+    z-index: 2;
+}
+
+#fancy-button:after {
+    position: absolute;
+    content: "";
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: #ff003b;
+    transition: all .35s;
+}
+
+#fancy-button:hover {
+    color: #fff;
+}
+
+#fancy-button:hover:after {
+    width: 100%;
 }
 
 .list-el {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  margin-left: 4px;
-  margin-right: 4px;
-  padding: 0.2rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-left: 4px;
+    margin-right: 4px;
+    padding-top: 12px;
+    padding-bottom:12px;
+    cursor: pointer;
 }
 
-.close-places-list-container:nth-child(even){
-  background-color: #e5eef07b;
+.list-el:hover{
+    color: white;
+    background: #B2B2B2;
+}
+
+.list-el > * {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .left {
@@ -449,9 +507,16 @@ input {
     margin-right: 24px
 }
 
-.list-el > * {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+hr {
+    margin: 0;
+    padding: 0;
+}
+
+.see-all-button{
+    color: white;
+    width: 128px;
+    height: 64px;
+    background: #ff003b;
+    border-radius: 24px;
 }
 </style>

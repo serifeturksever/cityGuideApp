@@ -1,8 +1,9 @@
 <template>
   <div>
+    <Modal />
     <h2><strong> Now it's easy to top up balance! </strong></h2>
     <div class="ui container">
-        <form class="form">
+        <div class="form">
           <div class="ui input flexbox">
             <input type="text" name="name" placeholder="Ali" />
             <input type="text" name="surname" placeholder="Candan" />
@@ -37,14 +38,13 @@
           </div>
           <div>
             <button
-            @click="this.notImplementedYet"
-            class="ui right labeled icon button right floated"
+            class="notImplemented ui right labeled icon button right floated"
           >
             <i class="right arrow icon"></i>
             Top Up!
           </button>
           </div>
-        </form>
+        </div>
     </div>
     <h2>
       <strong>Hi UserG8 ✋ Your current balance is <i>12.48₺.</i></strong>
@@ -64,7 +64,11 @@ expired date    cvv
 
 <script>
 import { notImplementedYet } from "./../services/helpers";
+import Modal from './Modal'
 export default {
+  components: {
+    Modal
+  },
   methods: {
     notImplementedYet
   }

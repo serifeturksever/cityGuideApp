@@ -1,5 +1,6 @@
 <template lang="html">
   <div id="welcome-container">
+    <Modal/>
     <h1>Welcome to City Guide App</h1>
     <h2>Discover your city before it's too late!</h2>
     <div class="ui container social">
@@ -32,7 +33,7 @@
     </div>
 
     <div id="all-cards">
-      <a @click="this.notImplementedYet">
+      <a class="notImplemented">
         <Card
           title="News & Events & Tips"
           v-bind:imgSrc="require('../assets/event.png')"
@@ -44,19 +45,19 @@
           v-bind:imgSrc="require('../assets/attractions.png')"
         />
       </router-link>
-      <a @click="this.notImplementedYet">
+      <a class="notImplemented">
         <Card
           title="Attractions"
           v-bind:imgSrc="require('../assets/attr.png')"
         />
       </a>
-      <a @click="this.notImplementedYet">
+      <a class="notImplemented">
         <Card
           title="Weather"
           v-bind:imgSrc="require('../assets/weather.png')"
         />
       </a>
-      <a @click="this.notImplementedYet">
+      <a class="notImplemented">
         <Card
           title="Where to Eat & Stay"
           v-bind:imgSrc="require('../assets/food.png')"
@@ -70,12 +71,14 @@
 import Card from "./Card";
 import SocialFeed from "./SocialFeed.vue";
 import { notImplementedYet } from "./../services/helpers";
+import Modal from './Modal';
 
 export default {
   name: "Welcome",
   components: {
     Card,
-    SocialFeed
+    SocialFeed,
+    Modal
   },
   mounted() {
     this.loadMap();
