@@ -9,7 +9,7 @@
             <input type="text" name="surname" placeholder="Candan" />
           </div>
           <div class="ui input labeled">
-            <div class="ui label">+90</div>
+            <div class="colored ui label">+90</div>
             <input type="text" name="phoneNumber" placeholder="5xxx xxx xx xx" />
           </div>
           <div class="ui input ">
@@ -21,10 +21,10 @@
               name="amountOfMoney"
               placeholder="25"
             />
-            <div class="ui label"><i class="lira sign icon"></i></div>
+            <div class="colored ui label"><i class="lira sign icon"></i></div>
           </div>
           <div class="ui input labeled">
-            <div class="ui label"><i class="credit card outline icon"></i></div>
+            <div class="colored ui label"><i class="credit card outline icon"></i></div>
             <input type="number" name="cardNumber" placeholder="xxxx xxxx xxxx xx xx" />
           </div>
           <div class="ui input flexbox">
@@ -38,16 +38,16 @@
           </div>
           <div>
             <button
-            class="notImplemented ui right labeled icon button right floated"
+            class="colored notImplemented ui right labeled icon button right floated"
           >
             <i class="right arrow icon"></i>
-            Top Up!
+            Load
           </button>
           </div>
         </div>
     </div>
     <h2>
-      <strong>Hi UserG8 ✋ Your current balance is <i>12.48₺.</i></strong>
+      <strong>Hi Ali ✋ Your current balance is <i>12.48₺.</i></strong>
     </h2>
   </div>
 </template>
@@ -89,5 +89,10 @@ export default {
     display: flex;
     flex-direction: row;
     gap: 0.4rem;
+}
+
+.colored {
+  color: white !important;
+background: #11324D !important;
 }
 </style>

@@ -8,24 +8,19 @@
                 <h2>This feature is not Implemented Yet!</h2>
             </div>
             <h4 style="color: grey">These are the some options for you to go</h4>
+            <br>
             <div class="modal-body">
-                <ul class="modal-list">
-                    <li>
-                        <router-link to="/nearby-attractions">
-                            1.) Nearby Attractions
-                        </router-link>
-                    </li>
-                    <li>
-                        <router-link to="/public-transport-card">
-                            2.) Public Transport Card
-                        </router-link>
-                    </li>
-                    <li>
-                        <router-link to="/">
-                            3.) Main Page
-                        </router-link>
-                    </li>
-                </ul>
+                <div class="options">
+                            <router-link to="/nearby-attractions">
+                                Nearby Attractions
+                            </router-link>
+                            <router-link to="/public-transport-card">
+                                Public Transport Card
+                            </router-link>
+                            <router-link to="/">
+                                Main Page
+                            </router-link>
+                </div>
             </div>
         </div>
     </div>
@@ -137,5 +132,23 @@ export default {
 
 .modal-list>li>a {
     color: black;
+}
+
+.options{
+    margin-bottom: 32px;
+}
+
+.options > a {
+    width: fit-content;
+    height: fit-content;
+    padding: 8px;
+    background-color: #C1CFC0;
+    margin: 8px 16px;
+    border-radius: 8px;
+    color: white;
+    border: 1px solid transparent;
+    font-family: sans-serif;
+    cursor: pointer;
+    font-size: larger;
 }
 </style>
