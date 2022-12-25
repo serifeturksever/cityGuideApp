@@ -12,7 +12,7 @@ export const exported_places = [
       id: "ChIJtUEWiFjYuxQRi-P_IWn4s8I",
       name: "ECN ART GALLERY",
       description: "İzmir'de bir sanat galerisi",
-      establishment_date: -1
+      establishment_date: "Bilgi Yok"
     },
     {
       id: "ChIJy20mmlfYuxQRZvUFG4A_bZ8",
@@ -82,7 +82,7 @@ export const exported_places = [
       id: "ChIJIT0mIfLYuxQR3O81XuwU3nE",
       name: "Altınpark",
       description: "İzmir'de bir tarihi yer",
-      establishment_date: -1
+      establishment_date: "Bilgi Yok"
     },
     {
       id: "ChIJU5c_0_HYuxQRsR5rBLXX9LU",
@@ -95,7 +95,7 @@ export const exported_places = [
       id: "ChIJq6qq5vHYuxQRLnFeEogpne4",
       name: "Altınpark Basmane",
       description: "İzmir'de bir tarihi yer",
-      establishment_date: -1
+      establishment_date: "Bilgi Yok"
     },
     {
       id: "ChIJKTN0FfTYuxQRPcpaxd1I-A4",
@@ -136,28 +136,28 @@ export const exported_places = [
       id: "ChIJdRAaveTYuxQR9HvKhNrgzQE",
       name: "KAHVECİ POLAT FAL KAFE",
       description: "",
-      establishment_date: -1
+      establishment_date: "Bilgi Yok"
     },
     // * Museums
     {
       id: "ChIJK6ZG9PHYuxQRbHp_uCirctQ",
       name: "Radyo ve Demokrasi Müzesi",
       description: "İzmir'de bir müze",
-      establishment_date: -1
+      establishment_date: "Bilgi Yok"
     },
     {
       id: "ChIJKfOHv6HYuxQRqaSYN-6Ax8E",
       name: "Bet Hillel Sinagogu",
       description:
         "Bet Hillel Sinagogu, 19. yüzyılda İzmir Musevi Cemaati’nin en önemli din bilginleri olan Hahambaşı ve kadı Hayim Palaçi ve oğlu Hahambaşı Avram Palaçi’nin evinde aynı yüzyılın ilk çeyreğinde bir din akademisi olarak kurulmuştur. Sultan Abdülmecit tarafından 1861 yılında “Adaletten sorumlu din adamı” nişanı ile ödüllendirilen Hayim Palaçi, 1865 yılında Hahambaşı olmuştur. Hayim Palaçi’nin Bet Hillel Sinagogu’nda yazdığı kitaplar, günümüzde hala dünyada dini eğitim veren okullarda ders kitabı olarak okutulmaya devam edilmektedir. 2006 yılında yanan sinagog, İzmir Büyükşehir Belediyesi tarafından 2012 yılında restore edilerek Rav Hayim Palaçi Anı Evi olarak düzenlenmiştir.",
-      establishment_date: -1
+      establishment_date: "Bilgi Yok"
     },
     {
       id: "ChIJGVwZCfrYuxQRmRHbvtzWtmE",
       name: "Ahmet Piriştina Kent Arşivi ve Müzesi",
       description:
         "Ahmet Piriştina Kent Arşivi ve Müzesi, Türkiye'nin İzmir şehrinde yer alan bir müzedir.",
-      establishment_date: -1
+      establishment_date: "Bilgi Yok"
     },
     {
       id: "ChIJG6SJZ_bYuxQRJI7BJ7IT3eo",
@@ -171,38 +171,38 @@ export const exported_places = [
       id: "ChIJka9hBfPYuxQRYSNnWdsKqqY",
       name: "Aziz Voukolos Kilisesi ve Kültür Merkezi",
       description: "İzmir'de bir müze",
-      establishment_date: -1
+      establishment_date: "Bilgi Yok"
     },
     {
       id: "ChIJz4HKgu_YuxQRbTOT_QxqU4U",
       name: "Agora Ören Yeri",
       description:
         "Antik Yunan ve Roma pazarı ile şehir merkezinin kalıntılarının olduğu açık hava müzesi.",
-      establishment_date: -1
+      establishment_date: "Bilgi Yok"
     },
     {
       id: "ChIJ9btfYvHYuxQR8pYaqS7ORhY",
       name: "TCDD SIHHİYE VAGONU",
       description: "İzmir'de bir müze",
-      establishment_date: -1
+      establishment_date: "Bilgi Yok"
     },
     {
       id: "ChIJ9crxg_HYuxQR0L6DpBSmbD8",
       name: "Gazeteciler Cemiyeti Basin Muzesi Izmir",
       description: "İzmir'de bir müze",
-      establishment_date: -1
+      establishment_date: "Bilgi Yok"
     },
     {
       id: "ChIJC730manZuxQRDKqVPU-PUrU",
       name: "Tespihci Tahir Usta",
       description: "İzmir'de bir müze",
-      establishment_date: -1
+      establishment_date: "Bilgi Yok"
     },
     {
       id: "ChIJ76l8D_PYuxQRnMGV8UOBHbU",
       name: "İzmir Basın Müzesi",
       description: "İzmir'de bir müze",
-      establishment_date: -1
+      establishment_date: "Bilgi Yok"
     },
     {
       id: "ChIJB7yOT-XYuxQRowfjZTSsW7s",
@@ -214,7 +214,7 @@ export const exported_places = [
       id: "ChIJRwviVy3ZuxQREwlMz7_uJY4",
       name: "smyrna Agora Urbs Antiqua",
       description: "İzmir'de bir müze",
-      establishment_date: -1
+      establishment_date: "Bilgi Yok"
     },
     {
       id: "ChIJj7begljYuxQRHgt9dLUm3vA",
@@ -227,7 +227,7 @@ export const exported_places = [
       name: "Etz Hayim Sinagogu",
       description:
         "Etz Hayim Sinagogu, Türkiye'nin İzmir şehrinde yer alan bir sinagogdur. Kemeraltı'ndaki tarihî sinagoglardan biridir.",
-      establishment_date: -1
+      establishment_date: "Bilgi Yok"
     },
     {
       id: "ChIJr90Qf-_YuxQRge0YNU3DiLI",
@@ -267,7 +267,7 @@ export const exported_places = [
       id: "ChIJUQ7xgJbZuxQRpo2-zxp5BG4",
       name: "Başka Antika Rehabilite Merkezi",
       description: "İzmir'de bir müze",
-      establishment_date: -1
+      establishment_date: "Bilgi Yok"
     },
   
     // * Mosque
@@ -276,7 +276,7 @@ export const exported_places = [
       id: "ChIJ3Qa7lvrYuxQR1rIxm_pxZ7g",
       name: "Çankaya Camii",
       description: "İzmir'de bir cami",
-      establishment_date: -1
+      establishment_date: "Bilgi Yok"
     },
     {
       id: "ChIJDRzetuTYuxQRZk7hl5YOQlc",
@@ -303,7 +303,7 @@ export const exported_places = [
       id: "ChIJW-NKT_DYuxQRjxPZdhBOYSw",
       name: "Hurşudiye Cami",
       description: "",
-      establishment_date: -1
+      establishment_date: "Bilgi Yok"
     },
     {
       id: "ChIJy2nLk_HYuxQR4eNJo2Qzmrk",
@@ -337,7 +337,7 @@ export const exported_places = [
       id: "ChIJe7nYf_DYuxQRLLn4_0TCGQg",
       name: "Sipahipazarı Cami",
       description: "İzmir'de bir cami",
-      establishment_date: -1
+      establishment_date: "Bilgi Yok"
     },
     {
       id: "ChIJdXe4N_LYuxQRJKMLX0P1XGo",
@@ -350,25 +350,25 @@ export const exported_places = [
       id: "ChIJExG87_TYuxQR7hnPqna9g-Q",
       name: "Kahramanlar Yeni Camii",
       description: "İzmir'de bir cami",
-      establishment_date: -1
+      establishment_date: "Bilgi Yok"
     },
     {
       id: "ChIJLWGZx4LZuxQR_Gip3M-mSdg",
       name: "Durmuş Akkuş Mescidi ( مسجد )",
       description: "İzmir'de bir cami",
-      establishment_date: -1
+      establishment_date: "Bilgi Yok"
     },
     {
       id: "ChIJ0YabAe7YuxQR1aKlfnGus4E",
       name: "T.C Izmir Konak Müftülüğü Merkez Şeyh Camii",
       description: "",
-      establishment_date: -1
+      establishment_date: "Bilgi Yok"
     },
     {
       id: "ChIJhdh2CPbYuxQRRTxnvIK3IVE",
       name: "T.C. Konak Müftülüğü Fuar Mescidi",
       description: "İzmir'de bir cami",
-      establishment_date: -1
+      establishment_date: "Bilgi Yok"
     },
     {
       id: "ChIJ418uV-XYuxQR8HrUOQwbhvc",
@@ -381,13 +381,13 @@ export const exported_places = [
       id: "ChIJL0qBOO7YuxQRNwy84fL7b7k",
       name: "T.C Izmir Konak Müftülüğü Namazgah Pazaryeri Camii",
       description: "",
-      establishment_date: -1
+      establishment_date: "Bilgi Yok"
     },
     {
       id: "ChIJI8DnAnjZuxQR56mFEinUixo",
       name: "Çocuk Hastanesi Mescidi",
       description: "İzmir'de bir cami",
-      establishment_date: -1
+      establishment_date: "Bilgi Yok"
     },
     {
       id: "ChIJxRiPefLYuxQRJF_zh90sNe4",
@@ -401,7 +401,7 @@ export const exported_places = [
       name: "İmamı Caferi Sadık Tayyar Türbesi",
       description:
         "İmamı Caferi Sadık Tayyar türbesi Kubilay Mah. 1021 Sk.da bulunmaktadır. Yapının bir ailenin özel mülkiyetinin bir kısmını işgal ettiğinden fotoğraf çekiminin oldukça zor ve ailenin izinine bağlıdır.",
-      establishment_date: -1
+      establishment_date: "Bilgi Yok"
     },
   
     // * Art Gallery
@@ -416,13 +416,13 @@ export const exported_places = [
       id: "ChIJtUEWiFjYuxQRi-P_IWn4s8I",
       name: "ECN ART GALLERY",
       description: "İzmir'de bir sanat galerisi",
-      establishment_date: -1
+      establishment_date: "Bilgi Yok"
     },
     {
       id: "ChIJyzH4kx7ZuxQRf3EQLqPDC-w",
       name: "BULVAR ART PROJECT",
       description: "İzmir'de bir sanat galerisi",
-      establishment_date: -1
+      establishment_date: "Bilgi Yok"
     },
     {
       id: "ChIJhQJA-_XYuxQRJOcfUYZBsJM",
@@ -435,13 +435,13 @@ export const exported_places = [
       id: "ChIJNwvi3PrYuxQRfkO7KzGxjHo",
       name: "ÖzKurşun Sanat Galerisi",
       description: "İzmir'de bir sanat galerisi",
-      establishment_date: -1
+      establishment_date: "Bilgi Yok"
     },
     {
       id: "ChIJw-cM8_fYuxQRnt8Eh1mraBs",
       name: "Galeri Fa",
       description: "İzmir'de bir sanat galerisi",
-      establishment_date: -1
+      establishment_date: "Bilgi Yok"
     },
     {
       id: "ChIJ3ZTirOTYuxQROd-B87KCLeM",
@@ -455,14 +455,14 @@ export const exported_places = [
       name: "İZMİR ÇİNİ- Ebru Camkiran",
       description:
         "Benim için çini geçmiş ile gelecek arasında bir köprüdür. Çini geçmişten geldi geleceğe gidiyor bende buna elçilik ediyorum Çini Sanatçısı Ebru Camkıran’ın Kemeraltı’ndaki İzmir Çini Atölyesi",
-      establishment_date: -1
+      establishment_date: "Bilgi Yok"
     },
     {
       id: "ChIJoyba40_ZuxQRhSrAbyhju8k",
       name: "Kovan: yaratıcı deneyim merkezi",
       description:
         "KOVAN İzmir’in kalbi Kemeraltı’nda tarihi Piyaleoğlu çarşısında gürültüden uzak bir yaratıcı deneyim merkezidir. Sanatla iç içe olmak isteyen herkes için düşünme, buluşma, yaratma ve paylaşma alanı olarak düzenlenmiştir. Amacı sanatın ulaşılabilirliğini arttırmak, sanatçılar için yeni bir sergileme alanı yaratmak ve daha çok insanı sanatla buluşturmaktır.",
-      establishment_date: -1
+      establishment_date: "Bilgi Yok"
     },
     {
       id: "ChIJU5y_wTTZuxQR0x8CTn7UNkU",
@@ -476,25 +476,25 @@ export const exported_places = [
       name: "Ayzeredant Sanat Galerisi",
       description:
         "Harvard Üniversitesi’nden James R. Russell’ın Şehleray dili üzerine yazdığı bir makaleye göre Tıngır Şehleray’ı dünya barışına destek olması için tasarladı. 19’uncu yüzyılda 40 yıl boyunca Buca’da yaşamış olan Ermeni şair 1865 yılında, kelime anlamı “evrensel dil” olan Şehleray’ı icat etti. Şehleray’ı barış ve sevgi dili olması için tasarlayan Tıngır, dili oluştururken Sanskritçe’den faydalandı. İcat ettiği dil için bir gramer kitabı ve sözlük de hazırlayan Tıngır, kendisini ziyaret edenlerle bu sözlük yardımıyla anlaşıyordu. Şehleray dilinde şiirler de yazan Tıngır bu şiirleri ziyaretçilerinin okuyabilmesi için Fransızcaya çeviriyordu. Birçok farklı dili iyi derecede konuşabilen Tıngır iyi bir dil bilimciydi.Ayzeradant Galeri’nin ismi de Tıngır’ın Buca’daki evinin girişine astığı “Ayzeradant” (bilgelik tapınağı) tabelasından geliyor. Tıngır, 1881 yılında kendi kazdığı mezarın içinde ölü bulundu.",
-      establishment_date: -1
+      establishment_date: "Bilgi Yok"
     },
     {
       id: "ChIJER-hpOTYuxQR1shwCSiq-pM",
       name: "A.Art Galeri",
       description: "İzmir'de bir sanat galerisi",
-      establishment_date: -1
+      establishment_date: "Bilgi Yok"
     },
     {
       id: "ChIJzynHVa_ZuxQRFqsALSqP5ds",
       name: "Şenay Arslan Ebru Atölyesi",
       description: "İzmir'de bir sanat galerisi",
-      establishment_date: -1
+      establishment_date: "Bilgi Yok"
     },
     {
       id: "ChIJHRWBwk7ZuxQRugBffy4zcbs",
       name: "Soylu Antika & Sanat",
       description: "İzmir'de bir sanat galerisi",
-      establishment_date: -1
+      establishment_date: "Bilgi Yok"
     },
     {
       id: "ChIJ16CFHVnYuxQRI2I-WIjYk88",
@@ -507,27 +507,27 @@ export const exported_places = [
       id: "ChIJzynHVa_ZuxQRFqsALSqP5ds",
       name: "Şenay Arslan Ebru Atölyesi",
       description: "İzmir'de bir sanat galerisi",
-      establishment_date: -1
+      establishment_date: "Bilgi Yok"
     },
     {
       id: "ChIJC44CxQbZuxQRBEGkHiJy3AU",
       name: "Ayzeredant Sanat Galerisi",
       description:
         "Harvard Üniversitesi’nden James R. Russell’ın Şehleray dili üzerine yazdığı bir makaleye göre Tıngır Şehleray’ı dünya barışına destek olması için tasarladı. 19’uncu yüzyılda 40 yıl boyunca Buca’da yaşamış olan Ermeni şair 1865 yılında, kelime anlamı “evrensel dil” olan Şehleray’ı icat etti. Şehleray’ı barış ve sevgi dili olması için tasarlayan Tıngır, dili oluştururken Sanskritçe’den faydalandı. İcat ettiği dil için bir gramer kitabı ve sözlük de hazırlayan Tıngır, kendisini ziyaret edenlerle bu sözlük yardımıyla anlaşıyordu. Şehleray dilinde şiirler de yazan Tıngır bu şiirleri ziyaretçilerinin okuyabilmesi için Fransızcaya çeviriyordu. Birçok farklı dili iyi derecede konuşabilen Tıngır iyi bir dil bilimciydi.Ayzeradant Galeri’nin ismi de Tıngır’ın Buca’daki evinin girişine astığı “Ayzeradant” (bilgelik tapınağı) tabelasından geliyor. Tıngır, 1881 yılında kendi kazdığı mezarın içinde ölü bulundu.",
-      establishment_date: -1
+      establishment_date: "Bilgi Yok"
     },
     {
       id: "ChIJ718vRfbZuxQRrRQwhNntDZA",
       name: "EArt Galeri İzmir",
       description:
         "EArt Galeri, sanat tarihinin farklı dönemlerine ait klasik, çağdaş ve modern sanat eserlerinden oluşan zengin koleksiyonu ile sanatseverleri bekliyor.",
-      establishment_date: -1
+      establishment_date: "Bilgi Yok"
     },
     {
       id: "ChIJDzwVEhXZuxQRpaJ-kcA181E",
       name: "Sergül Okay Sanat Galerisi",
       description: "İzmir'de bir sanat galerisi",
-      establishment_date: -1
+      establishment_date: "Bilgi Yok"
     },
     {
       id: "ChIJu6QziVfYuxQRrXgeZqtYDEY",

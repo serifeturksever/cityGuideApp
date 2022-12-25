@@ -184,7 +184,6 @@ export default {
       let detailed_place = exported_places.filter(key => key.id === place_id).length > 0 ? exported_places.filter(key => key.id === place_id)[0] : "";
       let place_description = detailed_place != "" ? detailed_place.description : "";
       let place_establishment_date = detailed_place != "" ? `Kuruluş Tarihi: ${detailed_place.establishment_date}` : ""
-      place_establishment_date = place_establishment_date = -1 ? "Kuruluş Tarihi: Bilgi Yok" : place_establishment_date;
 
       var infowindow = new google.maps.InfoWindow();
       var map = new google.maps.Map(this.$refs['map'], {
