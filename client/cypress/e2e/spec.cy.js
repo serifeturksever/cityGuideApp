@@ -27,3 +27,13 @@ describe("route test Home -> Transport Card", () => {
     cy.url().should("include", "/public-transport-card");
   });
 });
+
+describe("route test Transport Card -> Nearby Attractions ", () => {
+  it("should go to Nearby Attractions from Transport Card", () => {
+    cy.visit("public-transport-card");
+    cy.wait(1000);
+    cy.get("#navbar > div.left > a:nth-child(3)").click();
+    cy.wait(1000);
+    cy.url().should("include", "/nearby-attractions");
+  });
+});
