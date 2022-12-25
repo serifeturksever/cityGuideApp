@@ -68,10 +68,10 @@
 </template>
 
 <script>
-import Card from "./Card";
+import Card from "./Card.vue";
 import SocialFeed from "./SocialFeed.vue";
 import { notImplementedYet } from "./../services/helpers";
-import Modal from './Modal';
+import Modal from './Modal.vue';
 
 export default {
   name: "Welcome",
