@@ -32,7 +32,7 @@ export default {
     author:String, summary:String, where:{
       type:String,
       default:"🤫🤫"
-    }, date:String, imgSrc:String, desc:String, likeCount:Number
+    }, date:String, imgSrc:String, desc:String, likeCount:String
   }
 };
 </script>

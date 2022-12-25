@@ -16,7 +16,7 @@
         date="4 days ago"
         summary="added 1 new photos"
         v-bind:imgSrc="require('../assets/rome.jpg')"
-        likeCount=4
+        likeCount=1
       />
       <SocialFeed
         author="Giovan Clerk"
@@ -30,6 +30,7 @@
       author="Michel Surf"
       date="09.14.2023"
       summary="going to join 'Yoga Session with Abele'"
+      likeCount=27
       />
     </div>
     <div id="all-cards">
@@ -67,119 +68,118 @@
   </div>
 </template>
 
+
 <script>
-import Card from "./Card.vue";
-import SocialFeed from "./SocialFeed.vue";
-import { notImplementedYet } from "./../services/helpers";
-import Modal from './Modal.vue';
+import Card from './Card'
+import Modal from './Modal'
+import SocialFeed from "./SocialFeed"
 
 export default {
-  name: "Welcome",
-  components: {
-    Card,
-    SocialFeed,
-    Modal
-  },
-  mounted() {
-    this.loadMap();
-    setInterval(() => {
-      let map = document.querySelector("#map");
-      let map_load = document.querySelector("#map-load");
-      if (map.childNodes.length == 0) {
-        if (map) map.style.display = "none";
-        if (map_load) map_load.style.display = "flex";
-      }
-    }, 200);
-  },
-  data() {
-    return {
-      lat: 0,
-      lng: 0
-    };
-  },
-  methods: {
-    notImplementedYet,
-    loadMap: function() {
-      var map;
-      const Izmir = { lat: 38.4237, lng: 27.1428 };
-      if (google.maps.localContext) {
-        const localContextMapView = new google.maps.localContext.LocalContextMapView(
-          {
-            element: this.$refs["map"],
-            placeTypePreferences: [
-              "restaurant",
-              "tourist_attraction",
-              "hospital",
-              "bank",
-              "park"
-            ],
-            maxPlaceCount: 24
-          }
-        );
-
-        map = localContextMapView.map;
-        map.setOptions({
-          center: Izmir,
-          zoom: 14
-        });
-        var infoWindow = new google.maps.InfoWindow();
-        const locationButton = document.createElement("button");
-        locationButton.textContent = "Find your Location";
-        locationButton.classList.add("custom-map-control-button");
-        map.controls[google.maps.ControlPosition.TOP_CENTER].push(
-          locationButton
-        );
-        locationButton.addEventListener("click", () => {
-          if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-              position => {
-                const pos = {
-                  lat: position.coords.latitude,
-                  lng: position.coords.longitude
-                };
-                const localContextMapView = new google.maps.localContext.LocalContextMapView(
-                  {
-                    element: this.$refs["map"],
-                    placeTypePreferences: [
-                      "restaurant",
-                      "tourist_attraction",
-                      "hospital",
-                      "bank",
-                      "park"
-                    ],
-                    maxPlaceCount: 24
-                  }
-                );
-                infoWindow.setPosition(pos);
-                map = localContextMapView.map;
-                infoWindow.setContent("Location found.");
-                infoWindow.open(map);
-                map.setOptions({
-                  center: pos,
-                  zoom: 14
-                });
-              },
-              () => {
-                handleLocationError(true, infoWindow, map.getCenter());
-              }
-            );
-          } else {
-            // Browser doesn't support Geolocation
-            handleLocationError(false, infoWindow, map.getCenter());
-          }
-        });
-      }
+    name: 'Welcome',
+    components: {
+        Card,
+	      SocialFeed,
+        Modal
     },
-    showMap: function() {
-      let map = document.querySelector("#map");
-      let map_load = document.querySelector("#map-load");
-      if (map) map.style.display = "block";
-      if (map_load) map_load.style.display = "none";
-      this.loadMap();
-    }
-  }
-};
+    mounted() {
+        this.loadMap();
+        setInterval(() => {
+            let map = document.querySelector("#map");
+            let map_load = document.querySelector("#map-load");
+            if (map.childNodes.length == 0) {
+                if (map) map.style.display = "none";
+                if (map_load) map_load.style.display = "flex";
+            }
+        }, 200);
+    },
+    data() {
+        return {
+            lat: 0,
+            lng: 0
+        };
+    },
+    methods: {
+        loadMap: function () {
+          console.log("merhaba")
+            var map;
+            const Izmir = { lat: 38.4237, lng: 27.1428 };
+            if (google.maps.localContext) {
+                const localContextMapView = new google.maps.localContext.LocalContextMapView({
+                    element: this.$refs['map'],
+                    placeTypePreferences: [
+                        "restaurant",
+                        "tourist_attraction",
+                        "hospital",
+                        "bank",
+                        "park",
+                        "mosque",
+                        "art_gallery",
+                        "museum"
+                    ],
+                    maxPlaceCount: 24,
+                });
+                map = localContextMapView.map;
+
+                map.setOptions({
+                    center: Izmir,
+                    zoom: 14,
+                });
+                var infoWindow = new google.maps.InfoWindow();
+                const locationButton = document.createElement("button");
+                locationButton.textContent = "Find your Location";
+                locationButton.classList.add("custom-map-control-button");
+                map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
+                locationButton.addEventListener("click", () => {
+                    if (navigator.geolocation) {
+                        navigator.geolocation.getCurrentPosition(
+                            (position) => {
+                                const pos = {
+                                    lat: position.coords.latitude,
+                                    lng: position.coords.longitude,
+                                };
+                                const localContextMapView = new google.maps.localContext.LocalContextMapView({
+                                    element: this.$refs['map'],
+                                    placeTypePreferences: [
+                                        "restaurant",
+                                        "tourist_attraction",
+                                        "hospital",
+                                        "bank",
+                                        "park",
+                                    ],
+                                    maxPlaceCount: 24,
+                                });
+                                infoWindow.setPosition(pos);
+                                map = localContextMapView.map;
+                                infoWindow.setContent("Location found.");
+                                infoWindow.open(map);
+                                map.setOptions({
+                                    center: pos,
+                                    zoom: 14,
+                                });
+
+                            },
+                            () => {
+                                handleLocationError(true, infoWindow, map.getCenter());
+                            }
+                        );
+                    } else {
+                        // Browser doesn't support Geolocation
+                        handleLocationError(false, infoWindow, map.getCenter());
+                    }
+                });
+            }
+        },
+        showMap: function () {
+            let map = document.querySelector("#map");
+            let map_load = document.querySelector("#map-load");
+            if (map) map.style.display = "block";
+            if (map_load) map_load.style.display = "none";
+            this.loadMap();
+        }
+    },
+}
 </script>
+
 <style>
 .social {
   padding: 4rem;
