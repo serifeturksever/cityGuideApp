@@ -34,7 +34,9 @@
                     <router-link to="/nearby-attractions">
                         <a>Nearby Attractions</a>
                     </router-link>
-                    <a @click="this.notImplementedYet">Buy transport card</a>
+                    <router-link to="/public-transport-card">
+                        <a>Public Transport Card</a>
+                    </router-link>
                 </div>
             </div>
         </div>
